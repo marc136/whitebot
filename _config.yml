@@ -1,10 +1,9 @@
 # Site settings
 title: Whiteboard drawing robot controller
 description: > # this means to ignore newlines until "baseurl:"
-  Ein Roboter, der mathematische funktionen oder beliebige Bilder an eine Whiteboard zeichnen kann.
+  Ein Roboter, der mathematische Funktionen oder beliebige Bilder an eine Whiteboard zeichnen kann.
 #baseurl: "" # the subpath of your site, e.g. /blog/
 baseurl: /whitebot
-url: "http://yourdomain.com" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
