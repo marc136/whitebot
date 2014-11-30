@@ -1,0 +1,35 @@
+---
+layout: post
+title:  Aufbau | Der Roboter und seine Einzelteile
+date:   2014-10-25
+categories: dependencies
+---
+
+##Überblick
+Der Whiteboard Roboter funktioniert nicht von alleine, sondern besteht aus mehreren Komponenten:  
+
+*	Der Roboter selbst kann fahren und die Motoren für das Heben und Senken des Stifts und des 'Radiergummis' ansprechen.  
+*	Damit verbunden ist ein [blidgets][blidget-source] Board, das Befehle per Bluetooth über Bluetooth 4.0 LE empfangen kann und diese an den Roboter weiter gibt.  
+*	Zusätzlich befindet sich daran noch ein Android Tablet. Dessen Rotations- und Gravitationssensoren zur Lagebestimmung verwendet werden.  
+*	Die Position des Roboters wird durch eine Tiefenkamera festgestellt.  
+
+##Einzelheiten
+
+###Roboter steuern
+Der [Controller][whitebot-repo] verbindet sich per Bluetooth 4.0 LE mit dem [blidget][blidget-source] und kann darüber Steuerkommandos verschicken.
+
+###Position feststellen
+Die Position wird durch die Tiefenkamera festgestellt. Hierfür wird das in C++ geschriebene Programm TouchTable verwendet, das bei jedem Durchlauf den Mittelpunkt des Roboters berechnet und diesen mit UDP-Paketen an eine IP-Adresse (Port 12345 - ist aber einstellbar) schickt.  
+Der ursprüngliche (und in Zukunft aktuellere) Code befindet sich im [Repository von Patrick Bader](https://github.com/patrigg/TouchTable). Mein Fork, der in Zukunft wahrscheinlich keine Updates mehr erhalten wird, sondern in das Ursprungsprojekt integriert wird, befindet sich in [diesem Repository](https://github.com/marc136/TouchTable).
+
+###Lage feststellen
+Hierfür läuft auf dem Android Tablet ein Programm, das die aktuellen Daten bezüglich Rotation und Gravitation mit UDP-Paketen an einen beliebigen Port einer IP-Adresse im Netzwerk versendet.  
+
+###Alles zusammenführen
+Der Controller überwacht den Port auf seiner IP-Adresse und empfängt sowohl die Positions- als auch die Lage-Informationen.  
+Diese werden verwendet um die nächsten Befehle zu berechnen und diese an den Roboter zu übergeben.  
+Der Code hierfür findet sich in [diesem github Repository][whitebot-repo].
+
+
+[blidget-source]: http://thomas-kubitza.de/blidgets-bluetooth-low-energy-rapid-prototyping-platform/
+[whitebot-repo]: https://github.com/marc136/whitebot

@@ -1,0 +1,39 @@
+---
+layout: post
+title:  Logging | 01 Schreiben der Dateien
+date:   2014-11-10
+categories: logging
+---
+##Grundsätzliches
+Für das Loggen habe ich eine kleine Klasse erstellt, die asynchron auf die Festplatte schreibt und Tabs als Trennzeichen verwendet.  
+Dafür habe ich das neue Projekt **Logging** erstellt, sodass der Code relativ einfach gegen eine bessere Implementierung ausgetauscht werden kann.  
+
+##ILogger
+Verwendet wird das Interface ILogger, das zwei Methoden zur Verfügung stellt:
+{% highlight c# %}
+public interface ILogger
+{
+	Task Log(string format, params object[] args);
+	Task Log(string message);
+}
+{% endhighlight %}  
+
+Die erste wird benutzt wie ```String.Format()```, und die zweite erwartet nur einen String.  
+
+##FileLogger
+Implementiert ist dieses Interface zur Zeit nur in der Klasse **FileLogger**, die einfache Textdateien schreibt.  
+Die Zugriffe auf die Festplatte erfolgen asynchron, und es werden zuerst einige Nachrichten gesammelt, bevor diese in die Datei geschrieben werden.  
+Außerdem können im Debugger die letzten zehn geschriebenen Nachrichten über die Variable **logMessages** angesehen werden.  
+
+##Beispiel zur Verwendung
+
+{% highlight c# %}
+var logger = new FileLogger(@"logs\sample.log");
+logger.Log("start");
+logger.Log("1={0}; 2={1}", 1, "zwei");
+{% endhighlight %}
+
+Die Ausgabe (in Datei _logs\sample.log_):
+
+	2014-11-10	10:22:40:561	start
+	2014-11-10	10:22:40:661	1=1; 2=zwei
