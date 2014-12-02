@@ -1,7 +1,7 @@
 ---
 layout: page
-title: About
-permalink: /about/
+title: Info
+permalink: /info/
 ---
 
 Diese Seite und das zugehörige Repository wurden für ein Projekt im Wintersemester 2014-15 an der Hochschule der Medien Stuttgart erstellt.  

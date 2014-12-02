@@ -4,6 +4,7 @@ description: > # this means to ignore newlines until "baseurl:"
   Ein Roboter, der mathematische Funktionen oder beliebige Bilder an eine Whiteboard zeichnen kann.
 #baseurl: "" # the subpath of your site, e.g. /blog/
 baseurl: /whitebot
+github_username: marc136
 
 # Build settings
 markdown: kramdown
