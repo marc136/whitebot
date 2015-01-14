@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLETest", "BLETest\BLETest.csproj", "{5DE28129-C067-4022-843C-3481AD2B5FF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{7AC26ECB-F11E-4E15-A0D7-B41201A15455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sensors", "Sensors\Sensors.csproj", "{DC4E1D99-C158-413E-9DC7-CA5007CF5215}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCodeParser", "GCodeParser\GCodeParser.csproj", "{895DB767-AB93-464D-A530-187F1EFE6EA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DE28129-C067-4022-843C-3481AD2B5FF6}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5DE28129-C067-4022-843C-3481AD2B5FF6}.Debug|Any CPU.Build.0 = Debug|x86
+		{5DE28129-C067-4022-843C-3481AD2B5FF6}.Debug|x86.ActiveCfg = Debug|x86
+		{5DE28129-C067-4022-843C-3481AD2B5FF6}.Debug|x86.Build.0 = Debug|x86
+		{5DE28129-C067-4022-843C-3481AD2B5FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DE28129-C067-4022-843C-3481AD2B5FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DE28129-C067-4022-843C-3481AD2B5FF6}.Release|x86.ActiveCfg = Release|x86
+		{5DE28129-C067-4022-843C-3481AD2B5FF6}.Release|x86.Build.0 = Release|x86
+		{7AC26ECB-F11E-4E15-A0D7-B41201A15455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AC26ECB-F11E-4E15-A0D7-B41201A15455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AC26ECB-F11E-4E15-A0D7-B41201A15455}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7AC26ECB-F11E-4E15-A0D7-B41201A15455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AC26ECB-F11E-4E15-A0D7-B41201A15455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AC26ECB-F11E-4E15-A0D7-B41201A15455}.Release|x86.ActiveCfg = Release|Any CPU
+		{DC4E1D99-C158-413E-9DC7-CA5007CF5215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC4E1D99-C158-413E-9DC7-CA5007CF5215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC4E1D99-C158-413E-9DC7-CA5007CF5215}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DC4E1D99-C158-413E-9DC7-CA5007CF5215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC4E1D99-C158-413E-9DC7-CA5007CF5215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC4E1D99-C158-413E-9DC7-CA5007CF5215}.Release|x86.ActiveCfg = Release|Any CPU
+		{895DB767-AB93-464D-A530-187F1EFE6EA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{895DB767-AB93-464D-A530-187F1EFE6EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{895DB767-AB93-464D-A530-187F1EFE6EA9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{895DB767-AB93-464D-A530-187F1EFE6EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{895DB767-AB93-464D-A530-187F1EFE6EA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{895DB767-AB93-464D-A530-187F1EFE6EA9}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
