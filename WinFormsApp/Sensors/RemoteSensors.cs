@@ -37,8 +37,8 @@ namespace BLETest
         public TouchState state;
         public int timestamp;
         public int id;
-        public double x;
-        public double y;
+        public short x;
+        public short y;
     }
 
     public class OrientationEventArgs : EventArgs
@@ -54,7 +54,7 @@ namespace BLETest
 
         public override string ToString()
         {
-            return Orientation.GetDirectionVector().ToString();
+            return Orientation.getDirectionVector().ToString();
         }
     }
 
@@ -176,11 +176,11 @@ namespace BLETest
                 case TouchState.Moved:
                     if(PositionTransform != null)
                     {
-                        currentPoints[p.id] = PositionTransform(new Vector2((float)p.x, (float)p.y));
+                        currentPoints[p.id] = PositionTransform(new Vector2(p.x, p.y));
                     }
                     else
                     {
-                        currentPoints[p.id] = new Vector2((float)p.x, (float)p.y);
+                        currentPoints[p.id] = new Vector2(p.x, p.y);
                     }
                     break;
             }
@@ -207,10 +207,8 @@ namespace BLETest
             result.timestamp = s.ReadInt32();
             result.id = s.ReadInt32();
             result.state = (TouchState)s.ReadByte();
-            result.x = s.ReadDouble();
-            result.y = s.ReadDouble();
-            //result.x = s.ReadInt16();
-            //result.y = s.ReadInt16();
+            result.x = s.ReadInt16();
+            result.y = s.ReadInt16();
             return result;
         }
 

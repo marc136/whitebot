@@ -18,7 +18,7 @@ namespace BLETest
         public PathPlanner(IRobotController controller)
         {
             this.controller = controller;
-            controller.Finished += Controller_Finished;
+            controller.Finished += controller_Finished;
         }
 
         public void UseLogger(ILogger logger) {
@@ -26,25 +26,23 @@ namespace BLETest
             Log("Start session");
         }
 
-
         private void Log(string message)
         {
             if (logger != null)
             {
-                logger.Log("PathPlanner\t" + message).Wait(500);
+                logger.Log("PathPlanner\t" + message);
             }
         }
 
         //this is called when a robot controller finishes a task
-        void Controller_Finished(object sender, FinishedEventArgs e)
+        void controller_Finished(object sender, FinishedEventArgs e)
         {
-            if (logger != null) { Log("Controller:\t" + e.ToString()); }
+            if (logger != null) { Log("Controller: " + e.ToString()); }
             if(commands.Any())
             {
                 var command = commands.Dequeue();
 
-                var msg = "Controller:\tstartPoint command\t" + command.ToString();
-                Log(msg);
+                Log("controller startPoint command\t" + command.ToString());
                 controller.ReceiveCommand(command);
                 Console.WriteLine(command.ToString());
             }
@@ -71,7 +69,7 @@ namespace BLETest
             Enqueue(new PenUpCommand());
         }
 
-        public void DrawLineSegments(params Vector2[] points)
+        public void drawLineSegments(params Vector2[] points)
         {
             for (int i = 0; i < points.Length; i += 2 )
             {
@@ -89,7 +87,7 @@ namespace BLETest
             }
         }
 
-        public void DrawCurvedLineStrip(Vector2 start, params Vector2[] points)
+        public void drawCurvedLineStrip(Vector2 start, params Vector2[] points)
         {
             Enqueue(new LookAtCommand(start));
             Enqueue(new MoveToCommand(start));
@@ -105,7 +103,7 @@ namespace BLETest
             Enqueue(new PenUpCommand());
         }
 
-        public void DrawStraightLineStrip(Vector2 start, params Vector2[] points)
+        public void drawStraightLineStrip(Vector2 start, params Vector2[] points)
         {
             Enqueue(new LookAtCommand(start));
             Enqueue(new MoveToCommand(start));
@@ -130,7 +128,7 @@ namespace BLETest
                 var x = minX + (maxX - minX) * i / (double)(points.Length - 1);
                 points[i] = position + new Vector2(scale.X / points.Length * i, (float)(-scale.Y * func(x)));
             }
-            DrawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
+            drawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
         }
 
         public void DrawMathematicalFunctionWithDerivate(Vector2 position, Vector2 scale, int pointCount, Func<double, double> func, Func<double, double> derivative, double minX, double maxX)
@@ -150,11 +148,11 @@ namespace BLETest
 
                 points[i] = position + new Vector2(scale.X / points.Length * i, (float)(-scale.Y * func(x))) + n;
             }
-            DrawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
+            drawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
         }
 
 
-        public void Reset()
+        internal void reset()
         {
             commands.Clear();
             controller.Stop();   

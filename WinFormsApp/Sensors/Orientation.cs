@@ -22,7 +22,7 @@ namespace BLETest
             return matrix;
         }
 
-        public Vector3 GetDirectionVector()
+        public Vector3 getDirectionVector()
         {
             return getRotationMatrix().Forward;
         }

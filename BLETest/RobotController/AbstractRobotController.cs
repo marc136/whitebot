@@ -8,6 +8,9 @@ using System.Timers;
 
 namespace BLETest
 {
+
+    public enum RobotControllerType { PidController, MLController }
+
     /// <summary>
     /// Any class deriving from this should override the tick-function (and call base.Timer_Elapsed)
         /// protected void OnTick()
@@ -15,6 +18,7 @@ namespace BLETest
     /// </summary>
     public abstract class AbstractRobotController
     {
+        protected string name = "Abstract";
         protected Robot robot;
         protected Timer timer;
         protected bool Paused { get; set; }
@@ -54,7 +58,7 @@ namespace BLETest
         {
             if (OnLogController != null)
             {
-                OnLogController("RobotControllerPID\t" + message);
+                OnLogController("RobotController"+this.name+"\t" + message);
             }
         }
         #endregion
@@ -93,8 +97,21 @@ namespace BLETest
 
             if (tickLogger != null)
             {
-                tickLogger.Log(String.Format("position({0})\torientation({1})\tgravity({2})",
-                                    robot.Position.ToString(), robot.Orientation.getDirectionVector(), robot.Gravity.vec));
+                var humanReadableOutput = false;
+                if (humanReadableOutput) 
+                {
+                    tickLogger.Log(String.Format("position({0})\tlookDirection({1})\tgravity({2})\torientation({3})",
+                                    robot.Position.ToString(), robot.LookDirection, robot.Gravity.vec, robot.Orientation.GetDirectionVector()));
+                }
+                else
+                {
+                    var dirVec = robot.Orientation.GetDirectionVector();
+                    tickLogger.Log(robot.Position.X + "\t" + robot.Position.Y + "\t" +
+                        robot.LookDirection.X + "\t" + robot.LookDirection.Y + "\t" +
+                        robot.Gravity.vec.X + "\t" + robot.Gravity.vec.Y + "\t" + robot.Gravity.vec.Z + "\t" + 
+                        dirVec.X + "\t" + dirVec.Y + "\t" + dirVec.Z + "\t"
+                        );
+                }
             }
 
             if (!paused)
@@ -215,9 +232,10 @@ namespace BLETest
             timer.Stop();
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             this.State = RobotState.Stop;
+            robot.Speed(0, 0);
         }
 
         public void Speed(double linear, double angular)

@@ -16,7 +16,6 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Logging;
-using PathPlanners;
 
 namespace BLETest
 {
@@ -29,14 +28,14 @@ namespace BLETest
         private ILogger CreateLogger(string title) {
             var logger = new FileLogger(@"logs\" + title + ".log");
             Loggers.Add(title, logger);
-            logger.Log("startPoint");
+            //logger.Log("startPoint");
             return logger;
         }
 
         Robot[] robots = new Robot[2];
         IRobotController[] robotControllers = new IRobotController[2];
         PathPlanner[] planners = new PathPlanner[2];
-        GamePadController gamePadController;
+        public GamePadController gamePadController;
 
         private Alignment[] alignment = new Alignment[2];
 
@@ -51,7 +50,27 @@ namespace BLETest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Connect();
+            //moved this stuff to InitializeRobot()
+        }
+
+        public void InitializeRobot(RobotController.MLRobotController.Learner learnedData)
+        {
+            Connect(RobotControllerType.MLController);
+
+            ((RobotControllerML)robotControllers[0]).ImportLearnedData(learnedData);
+            AttachLoggers();
+
+            sensors.UpdatePositions += sensorUpdatePosition;
+            sensors.UpdateOrientation += sensorUpdateOrientation;
+            sensors.UpdateGravity += sensorUpdateGravity;
+            sensors.PositionTransform = positionTransform;
+
+            sensors.Start();
+        }
+
+        public void InitializeRobot(RobotControllerType type)
+        {
+            Connect(type);
             AttachLoggers();
 
             sensors.UpdatePositions += sensorUpdatePosition;
@@ -150,7 +169,7 @@ namespace BLETest
             }
         }
 
-        public void Connect()
+        public void Connect(RobotControllerType type)
         {
             robots[0] = new Robot("Roboter", 0, sensors);
             robots[0].ChangedAlignment += Robot_ChangedAlignment;
@@ -161,8 +180,16 @@ namespace BLETest
             robots[1].ChangedPosition += Robot_ChangedPosition;
 
 
-            //robotControllers[0] = createOldControllerForRobot(0);
-            robotControllers[0] = new RobotControllerML(robots[0]);
+            switch (type)
+            {
+                case RobotControllerType.MLController:
+                    robotControllers[0] = new RobotControllerML(robots[0]);
+                    break;
+                case RobotControllerType.PidController:
+                default:
+                    robotControllers[0] = createOldControllerForRobot(0);
+                    break;
+            }
             planners[0] = new PathPlanner(robotControllers[0]);
             //robotControllers[0].Start();
 
@@ -349,6 +376,8 @@ namespace BLETest
 
         protected override void OnClosed(EventArgs e)
         {
+            planners.ToList().ForEach(planner => planner.Reset());
+            robots.ToList().ForEach(robot => robot.Speed(0, 0));
             sensors.Close();
             base.OnClosed(e);
         }
@@ -389,7 +418,7 @@ namespace BLETest
         private void button2_Click(object sender, EventArgs e)
         {// DrawRectangle
             var p = planners[0];
-            p.drawStraightLineStrip(new Vector2(100, 50), new Vector2(100, 150), new Vector2(200, 150), new Vector2(200, 50), new Vector2(100, 50));
+            p.DrawStraightLineStrip(new Vector2(100, 50), new Vector2(100, 150), new Vector2(200, 150), new Vector2(200, 50), new Vector2(100, 50));
         }
 
         private void drawSineFunction_Click(object sender, EventArgs e)
@@ -400,8 +429,9 @@ namespace BLETest
 
         private void stop_Click(object sender, EventArgs e)
         {
-            var p = planners[0];
-            p.reset();
+            planners.ToList().ForEach(planner => planner.Reset());
+            robots.ToList().ForEach(robot => robot.Speed(0, 0));
+            robotControllers.ToList().ForEach(controller => controller.Stop());
         }
 
         #region robotControllerPID
@@ -454,7 +484,7 @@ namespace BLETest
         private void drawAxes_Click(object sender, EventArgs e)
         {
             var p = planners[0];
-            p.drawLineSegments(new Vector2(100, 50), new Vector2(100, 160), new Vector2(80, 130), new Vector2(270, 130));
+            p.DrawLineSegments(new Vector2(100, 50), new Vector2(100, 160), new Vector2(80, 130), new Vector2(270, 130));
         }
 
         private void drawNiceFunction_Click(object sender, EventArgs e)
@@ -477,7 +507,7 @@ namespace BLETest
                 var x = minX + (maxX - minX) * i / (double)(points.Length - 1);
                 points[i] = position + new Vector2(scale.X / points.Length * i, (float)(-scale.Y * func(x)));
             }
-            p.drawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
+            p.DrawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
         }
 
         //info: moved to PathPlanner.DrawMathematicalFunctionWithDerivate()
@@ -498,7 +528,7 @@ namespace BLETest
 
                 points[i] = position + new Vector2(scale.X / points.Length * i, (float)(-scale.Y * func(x))) + n;
             }
-            p.drawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
+            p.DrawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
         }
 
         private void moveForward_Click(object sender, EventArgs e)
@@ -506,7 +536,7 @@ namespace BLETest
             var robot = robots[0];
 
             robot.Speed(200, 50);
-            //robot.linearSpeed(100);
+            //robot.LinearSpeed(100);
             Thread.Sleep(600);
             robot.Speed(0, 0);
         }
@@ -519,6 +549,38 @@ namespace BLETest
         private void btnStartControllers_Click(object sender, EventArgs e)
         {
             robotControllers.ToList().ForEach(controller => controller.Start());
+        }
+
+        private void btnParseGcode_Click(object sender, EventArgs e)
+        {
+            var code = textGcode.Text;
+            var centerPoint = new Vector2((float)inputCenterPointX.Value, (float)inputCenterPointY.Value);
+
+            var parser = new GCodeParser.Parser();
+            parser.CenterPoint = centerPoint;
+
+            parser.Parse(code);
+
+            foreach (ACommand command in parser.GetCommandQueue)
+            {
+                planners[0].Enqueue(command);
+            }
+        }
+
+        /// <summary>
+        /// Only works for the Machine Learning Controller
+        /// </summary>
+        private void btnLearn2Generations_Click(object sender, EventArgs e)
+        {
+            var controller = robotControllers[0] as RobotControllerML;
+            if (controller == null) return;
+            controller.LearnGenerations(5);
+        }
+
+        private void btnStartBenchmarkPath_Click(object sender, EventArgs e)
+        {
+            const int index = 0;
+            PathPlannerSamples.DrawBenchmark(planners[index], robots[index].Position);
         }
 
 

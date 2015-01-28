@@ -19,7 +19,7 @@ namespace BLETest
         }
     }
 
-    class GamePadController
+    public class GamePadController
     {
         Timer timer;
 

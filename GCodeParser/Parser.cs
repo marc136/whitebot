@@ -15,7 +15,7 @@ namespace GCodeParser
         Linear, Fast, Circular
     }
 
-    class Parser
+    public class Parser
     {
         private static Regex matcher = null;
         private string input;
@@ -32,7 +32,8 @@ namespace GCodeParser
 
         public Queue<ACommand> GetCommandQueue { get { return commands; } }
         Queue<ACommand> commands = new Queue<ACommand>();
-        
+
+        public Vector2 CenterPoint = Vector2.Zero;
 
         public Parser()
         {
@@ -52,7 +53,7 @@ namespace GCodeParser
             input = gCode;
         }
         
-        internal void Parse(string gCode = "")
+        public void Parse(string gCode = "")
         {
             if (gCode != "") input = gCode;
             if (String.IsNullOrWhiteSpace(input)) throw new ArgumentNullException("The parser needs an input string to work!");
@@ -72,13 +73,13 @@ namespace GCodeParser
         {
             foreach (Match match in matches)
             {
-                if (matchWasHandledAsNewLine(match)) continue;
+                if (MatchWasHandledAsNewLine(match)) continue;
 
                 HandleParsedCodes(match.Value.ToUpper());
             }
         }
 
-        private bool matchWasHandledAsNewLine(Match match)
+        private bool MatchWasHandledAsNewLine(Match match)
         {
             var result = String.IsNullOrWhiteSpace(match.Value);
 
@@ -113,7 +114,11 @@ namespace GCodeParser
 
         private void TranslateTargetVectorIfNeeded()
         {
-            if (!absolutePositioning)
+            if (absolutePositioning)
+            {//use given CenterPoint
+                targetVector += CenterPoint;
+            }
+            else
             { //relative positioning -> change targetPoint vector
                 targetVector += lastVector;
             }
@@ -124,7 +129,7 @@ namespace GCodeParser
             Console.WriteLine(match);
 
             int firstLetter = (char)match[0];
-            float number = getNumber(match);
+            float number = GetNumber(match);
             switch (firstLetter)
             {
                 case (int)'G':
@@ -149,16 +154,16 @@ namespace GCodeParser
 
                 case (int)'X':
                     moveCommandWasRead = true;
-                    targetVector += new Vector2(getNumber(match), 0);
+                    targetVector += new Vector2(GetNumber(match), 0);
                     break;
 
                 case (int)'Y':
                     moveCommandWasRead = true;
-                    targetVector += new Vector2(0, getNumber(match));
+                    targetVector += new Vector2(0, GetNumber(match));
                     break;
 
                 case (int)'Z':
-                    AddMovePenCommand(getNumber(match));                   
+                    AddMovePenCommand(GetNumber(match));                   
                     break;
 
                 default:
@@ -167,13 +172,13 @@ namespace GCodeParser
             }
         }
 
-        private float getNumber(string number, int numberOfCharacters = 1)
+        private float GetNumber(string number, int numberOfCharacters = 1)
         {
             string n = number.Substring(numberOfCharacters, number.Length - numberOfCharacters);
-            return parseNumberOrDefault(n, 0);
+            return ParseNumberOrDefault(n, 0);
         }
 
-        private float parseNumberOrDefault(string number, float defaultValue)
+        private float ParseNumberOrDefault(string number, float defaultValue)
         {
             try
             {

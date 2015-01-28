@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BLETest.RobotController.MLRobotController
 {
-    struct MotorSpeed 
+    public struct MotorSpeed 
     {
         public int Linear;
         public int Angular;
@@ -18,91 +19,17 @@ namespace BLETest.RobotController.MLRobotController
             Linear = linear; Angular = angular;
         }
     }
-
-    class LearnSpecificAngle
-	{
-        public LearnSpecificAngle()
-        {
-            SuccessfullyLearned = false;
-        }
-        /// <summary>
-        /// this list is sorted ascending by the distance from the target
-        /// </summary>
-        List<LearnAngleResult> triedConfigurations = new List<LearnAngleResult>();
-        public int NumberOfLearnTries { get { return triedConfigurations.Count; } }
-
-        public MotorSpeed CurrentConfiguration { get; private set; }
-        public void SetCurrentDeviation(double deviation)
-        {
-            var currentResult = new LearnAngleResult(CurrentConfiguration, deviation);
-            triedConfigurations.Add(currentResult);
-            triedConfigurations = triedConfigurations.OrderBy(element => Math.Abs(element.Deviation)).ToList();
-
-            if (Math.Abs(deviation) < 1) SuccessfullyLearned = true;
-        }
-
-        public bool SuccessfullyLearned { get; private set; }
-        /// <summary>
-        /// returns the best MotorSpeed configuration (so far)
-        /// </summary>
-        public MotorSpeed LearnedMotorSpeed { get { return triedConfigurations[0].MotorSpeed; } }
-
-        public MotorSpeed CreateNextTry() {
-            if (SuccessfullyLearned)
-            {
-                return LearnedMotorSpeed;
-            }
-
-            var result = new MotorSpeed(100, 0);
-
-            switch (NumberOfLearnTries)
-            {
-                case 0:
-                    //try without angular Speed -> this might be already the best solution
-                    break;
-                case 1:
-                    result.Angular = 100; //800;
-                    break;
-                case 2:
-                    result.Angular = -100; //-800;
-                    break;
-                default:
-                    result.Angular = CalculateAngularSpeedFromBestTwoTries();
-                    break;
-            }
-            
-            return result;
-        }
-
-        private int CalculateAngularSpeedFromBestTwoTries()
-        {
-            //TODO add some random-ness to escape local minima?
-            return (int)(triedConfigurations[0].AngularSpeed + triedConfigurations[1].AngularSpeed) / 2;
-        }
-	}
-
-
-    class LearnAngleResult
+    
+    enum LearningState
     {
-        public int LinearSpeed;
-        public int AngularSpeed;
-        public double Deviation;
-
-        public LearnAngleResult(MotorSpeed speed, double deviation) : this(speed.Linear, speed.Angular, deviation) {}
-
-        public LearnAngleResult(int linearSpeed, int angularSpeed, double deviation)
-        {
-            LinearSpeed = linearSpeed;
-            AngularSpeed = angularSpeed;
-            Deviation = deviation;
-        }
-
-        public MotorSpeed MotorSpeed { get { return new MotorSpeed(LinearSpeed, AngularSpeed); } }
+        LookToCenterBox, MoveToCenterBox, LookInFirstDirection, MoveInFirstDirection, LookInSecondDirection, MoveInSecondDirection,
+        StartAgain
     }
 
-    class Learner
+    
+    public class Learner
     {
-        private const int LearningVectorLength = 30;
+        private const int LearningVectorLength = 50;
         
         private Robot robot;
 
@@ -111,12 +38,15 @@ namespace BLETest.RobotController.MLRobotController
 
         private Vector2 startPoint;
         private Vector2 targetPoint;
+        private Vector2 currentAngle;
 
-        Dictionary<Vector2, LearnSpecificAngle> learnedAngles = new Dictionary<Vector2, LearnSpecificAngle>();
+        public LearningResult learnedResults;
         private LearnSpecificAngle currentSpecificLearningAngle;
 
         private RobotState currentState;
+        private LearningState currentLearningState = LearningState.StartAgain;
         private int numberOfTicksWithCurrentState = 0;
+
 
         /// <summary>
         /// A command queue is used to navigate in a given direction and then move back to the center box
@@ -126,47 +56,59 @@ namespace BLETest.RobotController.MLRobotController
 
         public bool AllAnglesLearned { get; private set; }
 
-        public Learner(Robot robot, Vector2 centerPoint)
-        {
-            this.robot = robot;
-            const int radius = 15;
-            this.currentState = RobotState.Idle;
+        public int Generation { get; set; }
 
+        public Learner(Robot robot, Vector2 centerPoint) : this(robot, centerPoint, null) { }
+
+        public Learner (Robot robot, Vector2 centerPoint, LearningResult learnedData)
+        {
+            const int radius = 15;
+
+            this.currentState = RobotState.Idle;
             this.AllAnglesLearned = false;
+
+            this.robot = robot;
             this.centerPoint = centerPoint;
-            centerBox = new Rectangle((int)centerPoint.X - radius, (int)centerPoint.Y - radius, 2 * radius, 2 * radius);
-            InitializeLearningAngles();
+            centerBox = new Rectangle((int)centerPoint.X - radius, (int)centerPoint.Y - radius, 3 * radius, 2 * radius);
+
+            if (learnedData == null)
+            {
+                InitializeLearningAngles();
+                Generation = 0;
+            }
+            else
+            {
+                learnedResults = learnedData;
+                Generation = learnedData.GetLowestNumberOfTries();
+            }
         }
 
         private void InitializeLearningAngles()
         {
-            for (int angle = 0; angle < 360; angle += 5)
+            this.learnedResults = new LearningResult();
+            /*
+            for (int angle = 0; angle < 360; angle += 90)
             {
                 var vector = AngleToVector(angle);
-                learnedAngles.Add(vector, new LearnSpecificAngle());
+                learnedResults.AddNewLearningVector(vector);
             }
+            /**/
+            learnedResults.AddNewLearningVector(new Vector2(1, 0));
+            /**/
+            learnedResults.AddNewLearningVector(new Vector2(0, 1));
+            learnedResults.AddNewLearningVector(new Vector2(-1, 0));
+            learnedResults.AddNewLearningVector(new Vector2(0, -1));
+            /**/
         }
 
         private Vector2 AngleToVector(float angle)
         {
             var vector = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-            vector.Normalize(); //is this needed?
+            /*var len = vector.Length();
+            if (len > 1 + float.Epsilon || len < 1 - float.Epsilon) */
+            vector.Normalize(); //normalization is unfortunately needed
+            
             return vector;
-        }
-
-        private void NextState(bool reachedTargetDestination = false)
-        {
-            if (reachedTargetDestination && currentSpecificLearningAngle != null)
-            {
-                var distanceFromTarget = RobotController.HelperFunctions.CalculateSignedDistance(startPoint, targetPoint, robot.Position);
-                currentSpecificLearningAngle.SetCurrentDeviation(distanceFromTarget);
-            }
-
-            robot.Speed(0, 0);
-
-            currentSpecificLearningAngle = null;
-            numberOfTicksWithCurrentState = 0;
-            currentState = RobotState.Finished;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -187,24 +129,29 @@ namespace BLETest.RobotController.MLRobotController
 
                 case RobotState.Finished:
                 case RobotState.Idle:
-                    if (commandQueue.Count > 0)
-                    {
-                        StartNextCommandInQueue();
-                    }
-                    else
-                    {//learn next angle or move to center box
-                        StartNewLearningQueue();
-                    }
+                    StartNextCommandInQueue();
                     break;
                 default:
                     break;
             }
         }
 
+        /// <summary>
+        /// this is used for debugging, when it reaches 0, a breakpoint may be triggered
+        /// </summary>
+        int ticker = 10;
         #region Rotation Commands (LookAt, LookInDirection, RotateTo)
         private void HandleRotationCommands()
         {
             var angle = directionalDeviation();
+
+            if (ticker == 0)
+            {
+                robot.Speed(0, 0);
+                ticker = 11;
+            }
+            ticker--;
+
             if (Double.IsNaN(angle))
             {//robot orientation is unknown -> stop robot
                 robot.Speed(0, 0);
@@ -212,12 +159,12 @@ namespace BLETest.RobotController.MLRobotController
             }
             var angularSpeed = rotationSpeedFromAngle(-angle); // we have to correct the deviation, so negative angle
 
-            Console.WriteLine("angle: " + angle + "\tangular: " + angularSpeed);
+            //Console.WriteLine("angle: " + angle + "\tangular: " + angularSpeed);
             robot.Speed(0, angularSpeed);
 
             if (angularSpeed == 0)
             {
-                NextState();
+                FinishState();
             }
             /**/
         }
@@ -244,31 +191,11 @@ namespace BLETest.RobotController.MLRobotController
             }
             return angle;
         }
-        #endregion
-
-        #region linear and angular Speed
-        private double linearSpeedFromDistance(double distance)
-        {
-            double min = 100;
-            double max = 200;
-
-            if (distance > 100)
-            {
-                return max;
-            }
-
-            if (distance < 2)
-            {
-                return 0;
-            }
-
-            return (max - min) * (distance - 2) / (100 - 2) + min;
-        }
 
         private double rotationSpeedFromAngle(double angle)
         {
-            double min = 500; // 160
-            double max = 1600; // 1000
+            double min = 300; // 160
+            double max = 800; // 1000
 
             double speed = 0;
             double absAngle = Math.Abs(angle);
@@ -295,118 +222,220 @@ namespace BLETest.RobotController.MLRobotController
             //if (target || length of desired vector) was reached
             if (robot.KnowsPosition)
             {
+                if (ticker == 0)
+                {
+                    //robot.Speed(0, 0);
+                    ticker = 11;
+                }
+                ticker--;
+
                 var movedDistance = Math.Abs((robot.Position - startPoint).Length());
 
                 if (movedDistance >= LearningVectorLength)
                 {
-                    NextState(reachedTargetDestination:true);
+                    FinishState(reachedTargetDestination:true);
                 }
                 else
                 {
-                    //continue to move
+                    if (currentLearningState == LearningState.MoveToCenterBox)
+                    {
+                        robot.Speed(100, 0);
+                    }
+                    else
+                    {
+                        var speed = currentSpecificLearningAngle.CurrentMotorSpeed;
+                        robot.Speed(speed.Linear, speed.Angular);
+                    }
                 }
+            }
+            else
+            {
+                robot.Speed(0, 0);
             }
 
             if (numberOfTicksWithCurrentState > 100)
             {//catch if the angular Speed was too high and the robot is only turning in circles
-                NextState(reachedTargetDestination:true);
+                FinishState(reachedTargetDestination:true);
             }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        private void FinishState(bool reachedTargetDestination = false)
+        {
+            robot.Speed(0, 0);
+
+            if (reachedTargetDestination && currentSpecificLearningAngle != null)
+            {//robot has moved to the desired destination
+                var distanceFromTarget = RobotController.HelperFunctions.CalculateSignedDistance(startPoint, targetPoint, robot.Position);
+                currentSpecificLearningAngle.SetCurrentDeviation(distanceFromTarget);
+                currentSpecificLearningAngle = null;
+            }
+
+            var newGeneration = learnedResults.GetLowestNumberOfTries();
+            if (Generation < newGeneration)
+            {
+                Generation = newGeneration;
+                SaveCurrentLearningProcess();
+            }
+
+            currentState = RobotState.Finished;
+            currentLearningState++;
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         private void StartNextCommandInQueue()
         {
-            var command = commandQueue.Dequeue() as DirectionalCommand;
+            ticker = 10;
+            numberOfTicksWithCurrentState = 0;
 
-            if (command == null)
+            if (currentLearningState >= LearningState.StartAgain)
             {
-                currentState = RobotState.Idle;
-                return;
+                currentLearningState = LearningState.LookToCenterBox;
             }
 
-            currentState = command.CommandType;
-
-            this.targetPoint = startPoint + (LearningVectorLength * command.Vector);
-            switch (command.CommandType)
+            switch (currentLearningState)
             {
-                case RobotState.LookAt:
-                    //Console.WriteLine("angle: " + directionalDeviation());
-                    this.startPoint = robot.Position;
+                case LearningState.LookToCenterBox:
+                    if (PositionInCenterBox(robot.Position))
+                    {//don't need to move to the center box, skip to look in the first direction (on next tick)
+                        currentLearningState = LearningState.LookInFirstDirection;
+                    }
+                    else
+                    {
+                        currentState = RobotState.LookAt;
+                        this.startPoint = robot.Position;
+                        this.targetPoint = centerPoint;
+                    }
                     break;
-                case RobotState.LookInDirection:
+
+                case LearningState.MoveToCenterBox:
+                    currentState = RobotState.MoveTo;
+                    this.startPoint = robot.Position;
+                    this.targetPoint = centerPoint;
+                    break;
+
+                case LearningState.LookInFirstDirection:
+                    SelectNewAngleToLearn();
+                    currentState = RobotState.LookInDirection;
                     this.startPoint = Vector2.Zero;
+                    this.targetPoint = currentAngle;
                     break;
-                case RobotState.MoveTo:
+
+                case LearningState.MoveInFirstDirection:
+                case LearningState.MoveInSecondDirection:
+                    currentState = RobotState.MoveTo;
                     this.startPoint = robot.Position;
+                    this.targetPoint = this.startPoint + currentAngle * LearningVectorLength;
                     break;
+
+                case LearningState.LookInSecondDirection:
+                    var invertedAngle = -currentAngle;
+
+                    //debug: this optimizes the number of movements (learn another vector when trying to move back to center box)
+                    //this is currently deactivated
+                    currentLearningState = LearningState.StartAgain;
+                    currentState = RobotState.Finished;
+                    if (true) return;
+                    //end debug
+
+                    LearnSpecificAngle invertedSpecific = learnedResults.ForNormalizedVector(invertedAngle);
+                    if (invertedSpecific != null)
+                    {
+                        currentLearningState = LearningState.StartAgain;
+                        currentState = RobotState.Finished;
+                    }
+                    else
+                    {
+                        currentAngle = invertedAngle;
+                        currentSpecificLearningAngle = invertedSpecific;
+
+                        currentState = RobotState.LookInDirection;
+                        this.startPoint = Vector2.Zero;
+                        this.targetPoint = currentAngle;
+                    }
+                    break;
+
                 default:
-                    throw new ArgumentException("Command " + command.ToString() + " is not a supported directional command");
+                    currentLearningState = LearningState.StartAgain;
+                    currentState = RobotState.Finished;
+                    break;
             }
         }
 
         /// <summary>
-        /// Learn an angle or move to the center box
-        /// </summary>
-        public void StartNewLearningQueue()
-        {
-            var startPoint = robot.Position;
-
-            //(1)pick an angle
-            //enqueue commands: RotateTo(Angle), Move(Angle), rotateTo(AngleInverted), move(AngleInverted)
-            //when queue is empty, check if robot is in centerbox
-            //  if not, move to centerbox
-            //then start again (1)
-
-            if (PositionInCenterBox(robot.Position))
-            {//learn a new vector
-                var angle = SelectNewAngleToLearn();
-
-                //enqueue commands: RotateTo(Angle), Move(Angle), rotateTo(AngleInverted), move(AngleInverted)
-                commandQueue.Enqueue(new LookInDirectionCommand(angle));
-                commandQueue.Enqueue(new MoveToCommand(angle));
-
-                angle = angle * -1;
-                commandQueue.Enqueue(new LookInDirectionCommand(angle));
-                commandQueue.Enqueue(new MoveToCommand(angle));
-                //debug: look at command Queue
-            }
-            else
-            {//moveToCenterBox
-                commandQueue.Enqueue(new LookAtCommand(centerPoint));
-                commandQueue.Enqueue(new MoveToCommand(centerPoint));
-            }
-        }
-
-        /// <summary>
+        /// <para>
         /// The center box is set in the constructor
+        /// </para>
+        /// <para>
+        /// todo: pick another random vector from learnedAngles to return to the center box
+        /// </para>
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
         private bool PositionInCenterBox(Vector2 point)
         {
             return centerBox.Contains((int)point.X, (int)point.Y);
         }
 
-        private Vector2 SelectNewAngleToLearn()
+        /// <summary>
+        /// sets currentAngle and currentSpecificLearningAngle
+        /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void SelectNewAngleToLearn()
         {
-            //initial debugging
-            return new Vector2(1, 0);
-
             //select a new angle
-            var useAngle = learnedAngles.First();
-            var min = useAngle.Value.NumberOfLearnTries;
-            if (min > 0)
+            currentAngle = learnedResults.GetNotLearnedAngleWithLowestNumberOfTries();
+            
+            currentSpecificLearningAngle = learnedResults.ForNormalizedVector(currentAngle);
+            /*
+            var newGeneration = learnedResults.GetLowestNumberOfTries();
+            if (Generation < newGeneration)
             {
-                var nextAngle = learnedAngles.FirstOrDefault(item => {
-                        return item.Value.NumberOfLearnTries < min && !item.Value.SuccessfullyLearned;
-                    });
-                if (nextAngle.Value != null)
-                {
-                    useAngle = nextAngle;
-                }
+                Generation = newGeneration;
+                SaveCurrentLearningProcess();
             }
+            /**/
+            currentSpecificLearningAngle.CreateNextTry();
+        }
 
-            return useAngle.Key;
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void SaveCurrentLearningProcess()
+        {
+            const string folder = "learned";
+            if (!System.IO.Directory.Exists(folder))
+            {
+                System.IO.Directory.CreateDirectory(folder);
+            }
+            var filename = DateTime.Now.ToString("yy-MM-dd") + "_after-generation-" + Generation + ".json";
+            this.SaveToFile(folder + @"\" + filename);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void SaveToFile(string filename)
+        {
+            try
+            {
+                Serializer.Serialize<LearningResult>(this.learnedResults, filename);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public static Learner LoadFromFile(Robot robot, Vector2 centerPoint, string filename)
+        {
+
+            try
+            {
+                var savedLearnData = Serializer.Deserialize<LearningResult>(filename);
+                if (savedLearnData == null) return null;
+                var learner = new Learner(robot, centerPoint, savedLearnData);
+                return learner;
+            }
+            catch
+            {
+                throw;
+                //return null;
+            }
         }
     }
 }

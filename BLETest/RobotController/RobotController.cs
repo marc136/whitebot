@@ -34,21 +34,21 @@ namespace BLETest
     public interface IRobotController
     {
         event EventHandler<BLETest.FinishedEventArgs> Finished;
-        void Halt();
         bool Idle { get; }
+
         void NextState();
-        event Action<string> OnLogController;
-        
-        //not used anymore
-        event Action<string> OnLogRobot;
-        
         void ReceiveCommand(BLETest.ACommand command);
         void Speed(double linear, double angular);
-        
+
+        event Action<string> OnLogController;
+        //not used anymore
+        event Action<string> OnLogRobot;
+                
         void UseTickLogger(Logging.ILogger logger);
 
         void Start();
         void Pause();
         void Stop();
+        void Halt();
     }
 }

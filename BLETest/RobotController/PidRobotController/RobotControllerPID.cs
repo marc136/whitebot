@@ -11,7 +11,8 @@ namespace BLETest
 {
     public class RobotControllerPID : AbstractRobotController, IRobotController
     {
-                
+        new protected string name = "PID";
+
         public RobotControllerPID(Robot robot): base(robot)
         {
             robot.Log += LogRobot;
@@ -93,8 +94,8 @@ namespace BLETest
                     /*
                      * non PID controller
                     angularSpeed = rotationSpeedFromAngle(-angle); // we have to correct the deviation, so negative angle
-                    linearSpeed = linearSpeedFromDistance(distance);
-                    //linearSpeed = 0;
+                    LinearSpeed = linearSpeedFromDistance(distance);
+                    //LinearSpeed = 0;
                     angularSpeed = angularSpeed - compensatePositionError();*/
 
                     linearSpeed = linearSpeedFromDistance(distance);
@@ -106,7 +107,7 @@ namespace BLETest
                     LogController(String.Format("MoveTo(Linear: {0} | angular: {1})", linearSpeed, angularSpeed));
                     if(linearSpeed != 0)
                     {
-                        //Console.WriteLine("Linear: " + linearSpeed + "\tangular: " + angularSpeed);
+                        //Console.WriteLine("Linear: " + LinearSpeed + "\tangular: " + angularSpeed);
                         Speed(linearSpeed, angularSpeed);
                     }
                     else

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BLETest</RootNamespace>
-    <AssemblyName>BLETest</AssemblyName>
+    <AssemblyName>WhiteBot</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,7 +39,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>..\bin\x86\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -48,7 +48,7 @@
     <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>..\bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -76,14 +76,6 @@
     <Reference Include="Windows" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RobotController\AbstractRobotController.cs" />
-    <Compile Include="RobotController\HelperFunctions.cs" />
-    <Compile Include="RobotController\MLRobotController\Learner.cs" />
-    <Compile Include="RobotController\RobotController.cs" />
-    <Compile Include="RobotController\MLRobotController\RobotControllerML.cs" />
-    <Compile Include="Level3\PathPlannerSamples.cs" />
-    <Compile Include="Level3\Command.cs" />
-    <Compile Include="Level1\DifferentialDrive.cs" />
     <Compile Include="Ui\DirectionVisualizer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -96,17 +88,14 @@
     <Compile Include="Ui\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Level3\GamePadController.cs" />
-    <Compile Include="Level1\IDualMotorController.cs" />
-    <Compile Include="Level3\PathPlanner.cs" />
-    <Compile Include="RobotController\PidRobotController\PidController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Robot.cs" />
-    <Compile Include="RobotController\PidRobotController\RobotControllerPID.cs" />
-    <Compile Include="Level1\SerialDualMotorController.cs" />
-    <Compile Include="Level1\SerialMotorController.cs" />
-    <Compile Include="Level1\Servo.cs" />
+    <Compile Include="Ui\LandingPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ui\LandingPage.Designer.cs">
+      <DependentUpon>LandingPage.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Ui\DirectionVisualizer.resx">
       <DependentUpon>DirectionVisualizer.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +112,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Ui\LandingPage.resx">
+      <DependentUpon>LandingPage.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -140,6 +132,14 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLETest\WhiteBot.csproj">
+      <Project>{85487726-eeae-4d34-8874-8fe73cbe2037}</Project>
+      <Name>WhiteBot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GCodeParser\GCodeParser.csproj">
+      <Project>{895db767-ab93-464d-a530-187f1efe6ea9}</Project>
+      <Name>GCodeParser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sensors\Sensors.csproj">
       <Project>{dc4e1d99-c158-413e-9dc7-ca5007cf5215}</Project>
       <Name>Sensors</Name>

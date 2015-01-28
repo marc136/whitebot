@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLETest
 {
-    public class PathPlannerSamples
+    class PathPlannerSamples
     {
 
         public static void DrawSineFunction(PathPlanner p)
@@ -18,7 +18,7 @@ namespace BLETest
             {
                 points[i] = new Vector2(60 + scale * i, (float)(135 - 80 * Math.Sin(i * Math.PI / (points.Length - 1))));
             }
-            p.DrawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
+            p.drawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
         }
 
         public static void StraightSamples(PathPlanner p)
@@ -36,14 +36,14 @@ namespace BLETest
         public static void DrawSquare(PathPlanner p, Vector2 start, int size = 20)
         {
             var radius = size / 2;
-            p.DrawStraightLineStrip(start,
+            p.drawStraightLineStrip(start,
                 new Vector2(start.X + radius, start.Y + radius), new Vector2(start.X + radius, start.Y - radius),
                 new Vector2(start.X - radius, start.Y - radius), new Vector2(start.X - radius, start.Y + radius));
         }
 
         public static void DrawStar(PathPlanner p, Vector2 start, int size = 25)
         {
-            p.DrawStraightLineStrip(start, 
+            p.drawStraightLineStrip(start, 
                 new Vector2(start.X+size, start.Y+size), new Vector2(start.X, start.Y+2*size), 
                 new Vector2(start.X-size, start.Y+size), start);
         }
@@ -82,21 +82,9 @@ namespace BLETest
 
         public static void House(PathPlanner p, Vector2 start, int size = 25)
         {
-            p.DrawStraightLineStrip(
+            p.drawStraightLineStrip(
                 start, new Vector2(start.X + size, start.Y), new Vector2(start.X+size, start.Y+size)
                 );
-        }
-
-        public static void DrawBenchmark(PathPlanner p, Vector2 start)
-        {
-            const int r = 50;
-
-            p.DrawStraightLineStrip(start, 
-                new Vector2(start.X + r, start.Y),
-                new Vector2(start.X + r, start.Y + r), 
-                new Vector2(start.X + 2*r, start.Y + r), 
-                new Vector2(start.X + 2*r, start.Y + 2*r));
-            /**/
         }
     }
 }

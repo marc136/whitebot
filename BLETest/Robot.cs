@@ -74,6 +74,9 @@ namespace BLETest
         public Orientation Orientation { get; private set; }
         public Gravity Gravity { get; private set; }
         public Alignment Alignment { get; private set; }
+        /// <summary>
+        /// normalized look direction vector of the robot
+        /// </summary>
         public Vector2 LookDirection { get; private set; }
         public bool CanNavigate { get; private set; }
 
@@ -246,7 +249,7 @@ namespace BLETest
             }
         }
 
-        public void linearSpeed(double speed)
+        public void LinearSpeed(double speed)
         {
             if (drive != null)
             {

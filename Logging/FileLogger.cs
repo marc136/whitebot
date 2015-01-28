@@ -113,10 +113,11 @@ namespace Logging
                 {
                     logFile.Close();
                 }
-                catch (ObjectDisposedException e)
+                catch (ObjectDisposedException)
                 {
                     //ignore, file was already closed
                 }
+                catch (InvalidOperationException) { }
                 finally
                 {
                     logFile.Dispose();

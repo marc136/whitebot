@@ -35,14 +35,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.robot1OrientationVis1 = new BLETest.DirectionVisualizer();
-            this.robot1OrientationVis2 = new BLETest.DirectionVisualizer();
-            this.robot1OrientationVis3 = new BLETest.DirectionVisualizer();
             this.label6 = new System.Windows.Forms.Label();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
-            this.robot1GravityVis1 = new BLETest.DirectionVisualizer();
-            this.robot1GravityVis2 = new BLETest.DirectionVisualizer();
-            this.robot1GravityVis3 = new BLETest.DirectionVisualizer();
             this.label8 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
@@ -60,14 +54,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-            this.robot2OrientationVis1 = new BLETest.DirectionVisualizer();
-            this.robot2OrientationVis2 = new BLETest.DirectionVisualizer();
-            this.robot2OrientationVis3 = new BLETest.DirectionVisualizer();
             this.label5 = new System.Windows.Forms.Label();
             this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
-            this.robot2GravityVis1 = new BLETest.DirectionVisualizer();
-            this.robot2GravityVis2 = new BLETest.DirectionVisualizer();
-            this.robot2GravityVis3 = new BLETest.DirectionVisualizer();
             this.label10 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
@@ -88,17 +76,31 @@
             this.label15 = new System.Windows.Forms.Label();
             this.kd = new System.Windows.Forms.TextBox();
             this.btnStartControllers = new System.Windows.Forms.Button();
+            this.btnLearn2Generations = new System.Windows.Forms.Button();
             this.moveForward = new System.Windows.Forms.Button();
             this.btnStraightSamples = new System.Windows.Forms.Button();
+            this.btnStartBenchmarkPath = new System.Windows.Forms.Button();
             this.flowLayoutPanel10 = new System.Windows.Forms.FlowLayoutPanel();
             this.label16 = new System.Windows.Forms.Label();
             this.textGcode = new System.Windows.Forms.TextBox();
-            this.btnParseGcode = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.inputCenterPointX = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.inputCenterPointY = new System.Windows.Forms.NumericUpDown();
+            this.inputCenterPointX = new System.Windows.Forms.NumericUpDown();
+            this.btnParseGcode = new System.Windows.Forms.Button();
+            this.robot1OrientationVis1 = new BLETest.DirectionVisualizer();
+            this.robot1OrientationVis2 = new BLETest.DirectionVisualizer();
+            this.robot1OrientationVis3 = new BLETest.DirectionVisualizer();
+            this.robot1GravityVis1 = new BLETest.DirectionVisualizer();
+            this.robot1GravityVis2 = new BLETest.DirectionVisualizer();
+            this.robot1GravityVis3 = new BLETest.DirectionVisualizer();
+            this.robot2OrientationVis1 = new BLETest.DirectionVisualizer();
+            this.robot2OrientationVis2 = new BLETest.DirectionVisualizer();
+            this.robot2OrientationVis3 = new BLETest.DirectionVisualizer();
+            this.robot2GravityVis1 = new BLETest.DirectionVisualizer();
+            this.robot2GravityVis2 = new BLETest.DirectionVisualizer();
+            this.robot2GravityVis3 = new BLETest.DirectionVisualizer();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -114,8 +116,8 @@
             this.flowLayoutPanel9.SuspendLayout();
             this.flowLayoutPanel10.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputCenterPointY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputCenterPointX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // changePositions
@@ -196,42 +198,6 @@
             this.flowLayoutPanel3.Size = new System.Drawing.Size(264, 86);
             this.flowLayoutPanel3.TabIndex = 5;
             // 
-            // robot1OrientationVis1
-            // 
-            this.robot1OrientationVis1.IndicatorColor = System.Drawing.Color.Green;
-            this.robot1OrientationVis1.IndicatorScale = 1F;
-            this.robot1OrientationVis1.Location = new System.Drawing.Point(6, 8);
-            this.robot1OrientationVis1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot1OrientationVis1.Name = "robot1OrientationVis1";
-            this.robot1OrientationVis1.Size = new System.Drawing.Size(75, 77);
-            this.robot1OrientationVis1.TabIndex = 0;
-            this.robot1OrientationVis1.X = 1F;
-            this.robot1OrientationVis1.Y = 0F;
-            // 
-            // robot1OrientationVis2
-            // 
-            this.robot1OrientationVis2.IndicatorColor = System.Drawing.Color.Blue;
-            this.robot1OrientationVis2.IndicatorScale = 1F;
-            this.robot1OrientationVis2.Location = new System.Drawing.Point(93, 8);
-            this.robot1OrientationVis2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot1OrientationVis2.Name = "robot1OrientationVis2";
-            this.robot1OrientationVis2.Size = new System.Drawing.Size(75, 77);
-            this.robot1OrientationVis2.TabIndex = 1;
-            this.robot1OrientationVis2.X = 1F;
-            this.robot1OrientationVis2.Y = 0F;
-            // 
-            // robot1OrientationVis3
-            // 
-            this.robot1OrientationVis3.IndicatorColor = System.Drawing.Color.Red;
-            this.robot1OrientationVis3.IndicatorScale = 1F;
-            this.robot1OrientationVis3.Location = new System.Drawing.Point(180, 8);
-            this.robot1OrientationVis3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot1OrientationVis3.Name = "robot1OrientationVis3";
-            this.robot1OrientationVis3.Size = new System.Drawing.Size(75, 77);
-            this.robot1OrientationVis3.TabIndex = 2;
-            this.robot1OrientationVis3.X = 1F;
-            this.robot1OrientationVis3.Y = 0F;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -252,42 +218,6 @@
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(264, 86);
             this.flowLayoutPanel4.TabIndex = 6;
-            // 
-            // robot1GravityVis1
-            // 
-            this.robot1GravityVis1.IndicatorColor = System.Drawing.Color.Green;
-            this.robot1GravityVis1.IndicatorScale = 0.1F;
-            this.robot1GravityVis1.Location = new System.Drawing.Point(6, 8);
-            this.robot1GravityVis1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot1GravityVis1.Name = "robot1GravityVis1";
-            this.robot1GravityVis1.Size = new System.Drawing.Size(75, 77);
-            this.robot1GravityVis1.TabIndex = 0;
-            this.robot1GravityVis1.X = 9.81F;
-            this.robot1GravityVis1.Y = 0F;
-            // 
-            // robot1GravityVis2
-            // 
-            this.robot1GravityVis2.IndicatorColor = System.Drawing.Color.Blue;
-            this.robot1GravityVis2.IndicatorScale = 0.1F;
-            this.robot1GravityVis2.Location = new System.Drawing.Point(93, 8);
-            this.robot1GravityVis2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot1GravityVis2.Name = "robot1GravityVis2";
-            this.robot1GravityVis2.Size = new System.Drawing.Size(75, 77);
-            this.robot1GravityVis2.TabIndex = 1;
-            this.robot1GravityVis2.X = 9.81F;
-            this.robot1GravityVis2.Y = 0F;
-            // 
-            // robot1GravityVis3
-            // 
-            this.robot1GravityVis3.IndicatorColor = System.Drawing.Color.Red;
-            this.robot1GravityVis3.IndicatorScale = 0.1F;
-            this.robot1GravityVis3.Location = new System.Drawing.Point(180, 8);
-            this.robot1GravityVis3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot1GravityVis3.Name = "robot1GravityVis3";
-            this.robot1GravityVis3.Size = new System.Drawing.Size(75, 77);
-            this.robot1GravityVis3.TabIndex = 2;
-            this.robot1GravityVis3.X = 9.81F;
-            this.robot1GravityVis3.Y = 0F;
             // 
             // label8
             // 
@@ -486,42 +416,6 @@
             this.flowLayoutPanel5.Size = new System.Drawing.Size(264, 86);
             this.flowLayoutPanel5.TabIndex = 6;
             // 
-            // robot2OrientationVis1
-            // 
-            this.robot2OrientationVis1.IndicatorColor = System.Drawing.Color.Green;
-            this.robot2OrientationVis1.IndicatorScale = 1F;
-            this.robot2OrientationVis1.Location = new System.Drawing.Point(6, 8);
-            this.robot2OrientationVis1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot2OrientationVis1.Name = "robot2OrientationVis1";
-            this.robot2OrientationVis1.Size = new System.Drawing.Size(75, 77);
-            this.robot2OrientationVis1.TabIndex = 0;
-            this.robot2OrientationVis1.X = 1F;
-            this.robot2OrientationVis1.Y = 0F;
-            // 
-            // robot2OrientationVis2
-            // 
-            this.robot2OrientationVis2.IndicatorColor = System.Drawing.Color.Blue;
-            this.robot2OrientationVis2.IndicatorScale = 1F;
-            this.robot2OrientationVis2.Location = new System.Drawing.Point(93, 8);
-            this.robot2OrientationVis2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot2OrientationVis2.Name = "robot2OrientationVis2";
-            this.robot2OrientationVis2.Size = new System.Drawing.Size(75, 77);
-            this.robot2OrientationVis2.TabIndex = 1;
-            this.robot2OrientationVis2.X = 1F;
-            this.robot2OrientationVis2.Y = 0F;
-            // 
-            // robot2OrientationVis3
-            // 
-            this.robot2OrientationVis3.IndicatorColor = System.Drawing.Color.Red;
-            this.robot2OrientationVis3.IndicatorScale = 1F;
-            this.robot2OrientationVis3.Location = new System.Drawing.Point(180, 8);
-            this.robot2OrientationVis3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot2OrientationVis3.Name = "robot2OrientationVis3";
-            this.robot2OrientationVis3.Size = new System.Drawing.Size(75, 77);
-            this.robot2OrientationVis3.TabIndex = 2;
-            this.robot2OrientationVis3.X = 1F;
-            this.robot2OrientationVis3.Y = 0F;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -543,42 +437,6 @@
             this.flowLayoutPanel6.Size = new System.Drawing.Size(264, 86);
             this.flowLayoutPanel6.TabIndex = 7;
             // 
-            // robot2GravityVis1
-            // 
-            this.robot2GravityVis1.IndicatorColor = System.Drawing.Color.Green;
-            this.robot2GravityVis1.IndicatorScale = 0.1F;
-            this.robot2GravityVis1.Location = new System.Drawing.Point(6, 8);
-            this.robot2GravityVis1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot2GravityVis1.Name = "robot2GravityVis1";
-            this.robot2GravityVis1.Size = new System.Drawing.Size(75, 77);
-            this.robot2GravityVis1.TabIndex = 0;
-            this.robot2GravityVis1.X = 9.81F;
-            this.robot2GravityVis1.Y = 0F;
-            // 
-            // robot2GravityVis2
-            // 
-            this.robot2GravityVis2.IndicatorColor = System.Drawing.Color.Blue;
-            this.robot2GravityVis2.IndicatorScale = 0.1F;
-            this.robot2GravityVis2.Location = new System.Drawing.Point(93, 8);
-            this.robot2GravityVis2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot2GravityVis2.Name = "robot2GravityVis2";
-            this.robot2GravityVis2.Size = new System.Drawing.Size(75, 77);
-            this.robot2GravityVis2.TabIndex = 1;
-            this.robot2GravityVis2.X = 9.81F;
-            this.robot2GravityVis2.Y = 0F;
-            // 
-            // robot2GravityVis3
-            // 
-            this.robot2GravityVis3.IndicatorColor = System.Drawing.Color.Red;
-            this.robot2GravityVis3.IndicatorScale = 0.1F;
-            this.robot2GravityVis3.Location = new System.Drawing.Point(180, 8);
-            this.robot2GravityVis3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.robot2GravityVis3.Name = "robot2GravityVis3";
-            this.robot2GravityVis3.Size = new System.Drawing.Size(75, 77);
-            this.robot2GravityVis3.TabIndex = 2;
-            this.robot2GravityVis3.X = 9.81F;
-            this.robot2GravityVis3.Y = 0F;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -595,7 +453,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.23529F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.76471F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 375F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 382F));
             this.tableLayoutPanel3.Controls.Add(this.label11, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.label12, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.robot2PositionX, 1, 0);
@@ -614,14 +472,14 @@
             this.label11.Location = new System.Drawing.Point(4, 0);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(19, 31);
+            this.label11.Size = new System.Drawing.Size(17, 31);
             this.label11.TabIndex = 0;
             this.label11.Text = "X:";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(102, 0);
+            this.label12.Location = new System.Drawing.Point(95, 0);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(24, 20);
@@ -631,7 +489,7 @@
             // robot2PositionX
             // 
             this.robot2PositionX.AutoSize = true;
-            this.robot2PositionX.Location = new System.Drawing.Point(31, 0);
+            this.robot2PositionX.Location = new System.Drawing.Point(29, 0);
             this.robot2PositionX.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.robot2PositionX.Name = "robot2PositionX";
             this.robot2PositionX.Size = new System.Drawing.Size(56, 31);
@@ -641,7 +499,7 @@
             // robot2PositionY
             // 
             this.robot2PositionY.AutoSize = true;
-            this.robot2PositionY.Location = new System.Drawing.Point(138, 0);
+            this.robot2PositionY.Location = new System.Drawing.Point(131, 0);
             this.robot2PositionY.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.robot2PositionY.Name = "robot2PositionY";
             this.robot2PositionY.Size = new System.Drawing.Size(76, 20);
@@ -659,6 +517,7 @@
             this.flowLayoutPanel8.Controls.Add(this.flowLayoutPanel9);
             this.flowLayoutPanel8.Controls.Add(this.moveForward);
             this.flowLayoutPanel8.Controls.Add(this.btnStraightSamples);
+            this.flowLayoutPanel8.Controls.Add(this.btnStartBenchmarkPath);
             this.flowLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel8.Location = new System.Drawing.Point(492, 5);
             this.flowLayoutPanel8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -730,6 +589,7 @@
             this.flowLayoutPanel9.Controls.Add(this.label15);
             this.flowLayoutPanel9.Controls.Add(this.kd);
             this.flowLayoutPanel9.Controls.Add(this.btnStartControllers);
+            this.flowLayoutPanel9.Controls.Add(this.btnLearn2Generations);
             this.flowLayoutPanel9.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel9.Location = new System.Drawing.Point(4, 95);
             this.flowLayoutPanel9.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -804,6 +664,16 @@
             this.btnStartControllers.UseVisualStyleBackColor = true;
             this.btnStartControllers.Click += new System.EventHandler(this.btnStartControllers_Click);
             // 
+            // btnLearn2Generations
+            // 
+            this.btnLearn2Generations.Location = new System.Drawing.Point(159, 69);
+            this.btnLearn2Generations.Name = "btnLearn2Generations";
+            this.btnLearn2Generations.Size = new System.Drawing.Size(165, 38);
+            this.btnLearn2Generations.TabIndex = 7;
+            this.btnLearn2Generations.Text = "Learn 2 generations";
+            this.btnLearn2Generations.UseVisualStyleBackColor = true;
+            this.btnLearn2Generations.Click += new System.EventHandler(this.btnLearn2Generations_Click);
+            // 
             // moveForward
             // 
             this.moveForward.Location = new System.Drawing.Point(3, 292);
@@ -823,6 +693,16 @@
             this.btnStraightSamples.Text = "straight samples";
             this.btnStraightSamples.UseVisualStyleBackColor = true;
             this.btnStraightSamples.Click += new System.EventHandler(this.btnStraightSamples_Click);
+            // 
+            // btnStartBenchmarkPath
+            // 
+            this.btnStartBenchmarkPath.Location = new System.Drawing.Point(274, 292);
+            this.btnStartBenchmarkPath.Name = "btnStartBenchmarkPath";
+            this.btnStartBenchmarkPath.Size = new System.Drawing.Size(135, 44);
+            this.btnStartBenchmarkPath.TabIndex = 17;
+            this.btnStartBenchmarkPath.Text = "benchmark path";
+            this.btnStartBenchmarkPath.UseVisualStyleBackColor = true;
+            this.btnStartBenchmarkPath.Click += new System.EventHandler(this.btnStartBenchmarkPath_Click);
             // 
             // flowLayoutPanel10
             // 
@@ -855,20 +735,11 @@
             this.textGcode.TabIndex = 1;
             this.textGcode.Text = resources.GetString("textGcode.Text");
             // 
-            // btnParseGcode
-            // 
-            this.btnParseGcode.Location = new System.Drawing.Point(6, 730);
-            this.btnParseGcode.Name = "btnParseGcode";
-            this.btnParseGcode.Size = new System.Drawing.Size(331, 38);
-            this.btnParseGcode.TabIndex = 2;
-            this.btnParseGcode.Text = "Parse GCode to Pathplanner";
-            this.btnParseGcode.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.label17);
-            this.groupBox1.Controls.Add(this.numericUpDown2);
+            this.groupBox1.Controls.Add(this.inputCenterPointY);
             this.groupBox1.Controls.Add(this.inputCenterPointX);
             this.groupBox1.Location = new System.Drawing.Point(6, 624);
             this.groupBox1.Name = "groupBox1";
@@ -876,6 +747,41 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Center point";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(14, 62);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(20, 20);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "y:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(14, 29);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(20, 20);
+            this.label17.TabIndex = 2;
+            this.label17.Text = "x:";
+            // 
+            // inputCenterPointY
+            // 
+            this.inputCenterPointY.Location = new System.Drawing.Point(51, 59);
+            this.inputCenterPointY.Maximum = new decimal(new int[] {
+            240,
+            0,
+            0,
+            0});
+            this.inputCenterPointY.Name = "inputCenterPointY";
+            this.inputCenterPointY.Size = new System.Drawing.Size(120, 26);
+            this.inputCenterPointY.TabIndex = 1;
+            this.inputCenterPointY.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // inputCenterPointX
             // 
@@ -894,40 +800,159 @@
             0,
             0});
             // 
-            // numericUpDown2
+            // btnParseGcode
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(51, 59);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            240,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 26);
-            this.numericUpDown2.TabIndex = 1;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.btnParseGcode.Location = new System.Drawing.Point(6, 730);
+            this.btnParseGcode.Name = "btnParseGcode";
+            this.btnParseGcode.Size = new System.Drawing.Size(331, 38);
+            this.btnParseGcode.TabIndex = 2;
+            this.btnParseGcode.Text = "Parse GCode to Pathplanner";
+            this.btnParseGcode.UseVisualStyleBackColor = true;
+            this.btnParseGcode.Click += new System.EventHandler(this.btnParseGcode_Click);
             // 
-            // label17
+            // robot1OrientationVis1
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(14, 29);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(20, 20);
-            this.label17.TabIndex = 2;
-            this.label17.Text = "x:";
+            this.robot1OrientationVis1.IndicatorColor = System.Drawing.Color.Green;
+            this.robot1OrientationVis1.IndicatorScale = 1F;
+            this.robot1OrientationVis1.Location = new System.Drawing.Point(6, 8);
+            this.robot1OrientationVis1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot1OrientationVis1.Name = "robot1OrientationVis1";
+            this.robot1OrientationVis1.Size = new System.Drawing.Size(75, 77);
+            this.robot1OrientationVis1.TabIndex = 0;
+            this.robot1OrientationVis1.X = 1F;
+            this.robot1OrientationVis1.Y = 0F;
             // 
-            // label18
+            // robot1OrientationVis2
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(14, 62);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(20, 20);
-            this.label18.TabIndex = 3;
-            this.label18.Text = "y:";
+            this.robot1OrientationVis2.IndicatorColor = System.Drawing.Color.Blue;
+            this.robot1OrientationVis2.IndicatorScale = 1F;
+            this.robot1OrientationVis2.Location = new System.Drawing.Point(93, 8);
+            this.robot1OrientationVis2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot1OrientationVis2.Name = "robot1OrientationVis2";
+            this.robot1OrientationVis2.Size = new System.Drawing.Size(75, 77);
+            this.robot1OrientationVis2.TabIndex = 1;
+            this.robot1OrientationVis2.X = 1F;
+            this.robot1OrientationVis2.Y = 0F;
+            // 
+            // robot1OrientationVis3
+            // 
+            this.robot1OrientationVis3.IndicatorColor = System.Drawing.Color.Red;
+            this.robot1OrientationVis3.IndicatorScale = 1F;
+            this.robot1OrientationVis3.Location = new System.Drawing.Point(180, 8);
+            this.robot1OrientationVis3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot1OrientationVis3.Name = "robot1OrientationVis3";
+            this.robot1OrientationVis3.Size = new System.Drawing.Size(75, 77);
+            this.robot1OrientationVis3.TabIndex = 2;
+            this.robot1OrientationVis3.X = 1F;
+            this.robot1OrientationVis3.Y = 0F;
+            // 
+            // robot1GravityVis1
+            // 
+            this.robot1GravityVis1.IndicatorColor = System.Drawing.Color.Green;
+            this.robot1GravityVis1.IndicatorScale = 0.1F;
+            this.robot1GravityVis1.Location = new System.Drawing.Point(6, 8);
+            this.robot1GravityVis1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot1GravityVis1.Name = "robot1GravityVis1";
+            this.robot1GravityVis1.Size = new System.Drawing.Size(75, 77);
+            this.robot1GravityVis1.TabIndex = 0;
+            this.robot1GravityVis1.X = 9.81F;
+            this.robot1GravityVis1.Y = 0F;
+            // 
+            // robot1GravityVis2
+            // 
+            this.robot1GravityVis2.IndicatorColor = System.Drawing.Color.Blue;
+            this.robot1GravityVis2.IndicatorScale = 0.1F;
+            this.robot1GravityVis2.Location = new System.Drawing.Point(93, 8);
+            this.robot1GravityVis2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot1GravityVis2.Name = "robot1GravityVis2";
+            this.robot1GravityVis2.Size = new System.Drawing.Size(75, 77);
+            this.robot1GravityVis2.TabIndex = 1;
+            this.robot1GravityVis2.X = 9.81F;
+            this.robot1GravityVis2.Y = 0F;
+            // 
+            // robot1GravityVis3
+            // 
+            this.robot1GravityVis3.IndicatorColor = System.Drawing.Color.Red;
+            this.robot1GravityVis3.IndicatorScale = 0.1F;
+            this.robot1GravityVis3.Location = new System.Drawing.Point(180, 8);
+            this.robot1GravityVis3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot1GravityVis3.Name = "robot1GravityVis3";
+            this.robot1GravityVis3.Size = new System.Drawing.Size(75, 77);
+            this.robot1GravityVis3.TabIndex = 2;
+            this.robot1GravityVis3.X = 9.81F;
+            this.robot1GravityVis3.Y = 0F;
+            // 
+            // robot2OrientationVis1
+            // 
+            this.robot2OrientationVis1.IndicatorColor = System.Drawing.Color.Green;
+            this.robot2OrientationVis1.IndicatorScale = 1F;
+            this.robot2OrientationVis1.Location = new System.Drawing.Point(6, 8);
+            this.robot2OrientationVis1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot2OrientationVis1.Name = "robot2OrientationVis1";
+            this.robot2OrientationVis1.Size = new System.Drawing.Size(75, 77);
+            this.robot2OrientationVis1.TabIndex = 0;
+            this.robot2OrientationVis1.X = 1F;
+            this.robot2OrientationVis1.Y = 0F;
+            // 
+            // robot2OrientationVis2
+            // 
+            this.robot2OrientationVis2.IndicatorColor = System.Drawing.Color.Blue;
+            this.robot2OrientationVis2.IndicatorScale = 1F;
+            this.robot2OrientationVis2.Location = new System.Drawing.Point(93, 8);
+            this.robot2OrientationVis2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot2OrientationVis2.Name = "robot2OrientationVis2";
+            this.robot2OrientationVis2.Size = new System.Drawing.Size(75, 77);
+            this.robot2OrientationVis2.TabIndex = 1;
+            this.robot2OrientationVis2.X = 1F;
+            this.robot2OrientationVis2.Y = 0F;
+            // 
+            // robot2OrientationVis3
+            // 
+            this.robot2OrientationVis3.IndicatorColor = System.Drawing.Color.Red;
+            this.robot2OrientationVis3.IndicatorScale = 1F;
+            this.robot2OrientationVis3.Location = new System.Drawing.Point(180, 8);
+            this.robot2OrientationVis3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot2OrientationVis3.Name = "robot2OrientationVis3";
+            this.robot2OrientationVis3.Size = new System.Drawing.Size(75, 77);
+            this.robot2OrientationVis3.TabIndex = 2;
+            this.robot2OrientationVis3.X = 1F;
+            this.robot2OrientationVis3.Y = 0F;
+            // 
+            // robot2GravityVis1
+            // 
+            this.robot2GravityVis1.IndicatorColor = System.Drawing.Color.Green;
+            this.robot2GravityVis1.IndicatorScale = 0.1F;
+            this.robot2GravityVis1.Location = new System.Drawing.Point(6, 8);
+            this.robot2GravityVis1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot2GravityVis1.Name = "robot2GravityVis1";
+            this.robot2GravityVis1.Size = new System.Drawing.Size(75, 77);
+            this.robot2GravityVis1.TabIndex = 0;
+            this.robot2GravityVis1.X = 9.81F;
+            this.robot2GravityVis1.Y = 0F;
+            // 
+            // robot2GravityVis2
+            // 
+            this.robot2GravityVis2.IndicatorColor = System.Drawing.Color.Blue;
+            this.robot2GravityVis2.IndicatorScale = 0.1F;
+            this.robot2GravityVis2.Location = new System.Drawing.Point(93, 8);
+            this.robot2GravityVis2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot2GravityVis2.Name = "robot2GravityVis2";
+            this.robot2GravityVis2.Size = new System.Drawing.Size(75, 77);
+            this.robot2GravityVis2.TabIndex = 1;
+            this.robot2GravityVis2.X = 9.81F;
+            this.robot2GravityVis2.Y = 0F;
+            // 
+            // robot2GravityVis3
+            // 
+            this.robot2GravityVis3.IndicatorColor = System.Drawing.Color.Red;
+            this.robot2GravityVis3.IndicatorScale = 0.1F;
+            this.robot2GravityVis3.Location = new System.Drawing.Point(180, 8);
+            this.robot2GravityVis3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.robot2GravityVis3.Name = "robot2GravityVis3";
+            this.robot2GravityVis3.Size = new System.Drawing.Size(75, 77);
+            this.robot2GravityVis3.TabIndex = 2;
+            this.robot2GravityVis3.X = 9.81F;
+            this.robot2GravityVis3.Y = 0F;
             // 
             // Form1
             // 
@@ -939,7 +964,7 @@
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "WhiteBot Controller";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -963,8 +988,8 @@
             this.flowLayoutPanel10.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputCenterPointY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputCenterPointX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1039,8 +1064,10 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown inputCenterPointY;
         private System.Windows.Forms.NumericUpDown inputCenterPointX;
+        private System.Windows.Forms.Button btnLearn2Generations;
+        private System.Windows.Forms.Button btnStartBenchmarkPath;
     }
 }
 
