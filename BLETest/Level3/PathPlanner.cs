@@ -11,6 +11,8 @@ namespace BLETest
     public class PathPlanner
     {
         IRobotController controller;
+        public IRobotController Controller { get { return controller; } }
+
         ILogger logger = null;
 
         Queue<ACommand> commands = new Queue<ACommand>();
@@ -43,10 +45,15 @@ namespace BLETest
             {
                 var command = commands.Dequeue();
 
-                var msg = "Controller:\tstartPoint command\t" + command.ToString();
+                var msg = "Controller:\tStart task\t" + command.ToString();
                 Log(msg);
                 controller.ReceiveCommand(command);
                 Console.WriteLine(command.ToString());
+            }
+            else
+            {
+                var msg = "Controller:\tStop path";
+                Log(msg);
             }
         }
 
@@ -55,6 +62,7 @@ namespace BLETest
             commands.Enqueue(command);
             if (controller.Idle)
             {
+                Log("Controller:\tStart path");
                 controller.NextState();
             }
         }
@@ -157,12 +165,8 @@ namespace BLETest
         public void Reset()
         {
             commands.Clear();
-            controller.Stop();   
+            controller.Stop();
         }
 
-        public IRobotController GetController()
-        {
-            return controller;
-        }
     }
 }
