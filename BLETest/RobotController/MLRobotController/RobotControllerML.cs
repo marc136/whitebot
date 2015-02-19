@@ -23,7 +23,7 @@ namespace BLETest
         public RobotControllerML(Robot robot) : base(robot)
         {
             LearnMovement = false;
-            movementLearner = new Learner(robot, new Vector2(180, 70));
+            movementLearner = new Learner(robot, new Vector2(80, 60));
         }
 
         public override void InitializeController()

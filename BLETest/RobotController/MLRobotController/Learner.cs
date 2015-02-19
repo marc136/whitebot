@@ -222,12 +222,19 @@ namespace BLETest.RobotController.MLRobotController
             //if (target || length of desired vector) was reached
             if (robot.KnowsPosition)
             {
-                if (ticker == 0)
+                if (currentLearningState == LearningState.MoveToCenterBox)
                 {
-                    //robot.Speed(0, 0);
-                    ticker = 11;
+                    if (PositionInCenterBox(robot.Position))
+                    {
+                        FinishState();
+                    }
+                    else
+                    {
+                        robot.Speed(300, 5);
+                        var i = 1;
+                    }
+                    return;
                 }
-                ticker--;
 
                 var movedDistance = Math.Abs((robot.Position - startPoint).Length());
 
@@ -237,15 +244,8 @@ namespace BLETest.RobotController.MLRobotController
                 }
                 else
                 {
-                    if (currentLearningState == LearningState.MoveToCenterBox)
-                    {
-                        robot.Speed(100, 0);
-                    }
-                    else
-                    {
-                        var speed = currentSpecificLearningAngle.CurrentMotorSpeed;
-                        robot.Speed(speed.Linear, speed.Angular);
-                    }
+                    var speed = currentSpecificLearningAngle.CurrentMotorSpeed;
+                    robot.Speed(speed.Linear, speed.Angular);
                 }
             }
             else

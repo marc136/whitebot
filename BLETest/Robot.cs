@@ -231,8 +231,9 @@ namespace BLETest
         private void initializeBlidgetComponents()
         {
             var pwm = blidget.createPwm(1, 3, 4);
-            eraser = new Servo(pwm, 0);
-            pen = new Servo(pwm, 1);
+            //MediaNight Hack Eraser und pen vertauschen
+            eraser = new Servo(pwm, 1);
+            pen = new Servo(pwm, 0);
 
             var serial = blidget.createSerial(1, 0);
 

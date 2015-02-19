@@ -83,7 +83,7 @@ namespace BLETest
     public class RemoteSensors
     {
         UdpClient net = new UdpClient(12345, AddressFamily.InterNetwork);
-        IPEndPoint ep = new IPEndPoint(IPAddress.Any, 12345);
+        IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.173.206"), 12345);
 
         public RemoteSensors()
         {

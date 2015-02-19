@@ -16,7 +16,9 @@ namespace BLETest
             float scale = 200.0f / points.Length;
             for (int i = 0; i < points.Length; ++i)
             {
-                points[i] = new Vector2(60 + scale * i, (float)(135 - 80 * Math.Sin(i * Math.PI / (points.Length - 1))));
+                //points[i] = new Vector2(60 + scale * i, (float)(135 - 80 * Math.Sin(i * Math.PI / (points.Length - 1))));
+                //MediaNight
+                points[i] = new Vector2(20 + scale * i, (float)(135 - 80 * Math.Sin(i * Math.PI / (points.Length - 1))));
             }
             p.DrawCurvedLineStrip(points.First(), points.Skip(1).ToArray());
         }
