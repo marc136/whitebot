@@ -1,0 +1,13 @@
+﻿<Window x:Class="WhiteBotLogTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Logfile Analyzer" Height="382" Width="525">
+    <Grid>
+        <ListBox Name="ListKnownPaths" ItemsSource="{Binding KnownPaths}" HorizontalAlignment="Left" Height="222" Margin="18,37,0,0" VerticalAlignment="Top" Width="128"/>
+        <Label Content="Paths in Logfiles" HorizontalAlignment="Left" Margin="18,10,0,0" VerticalAlignment="Top"/>
+        <Button Content="Analyze" HorizontalAlignment="Left" Margin="47,265,0,0" VerticalAlignment="Top" Width="98" Click="ButtonAnalyze_Click" Height="27"/>
+        <Canvas Name="DrivenPathCanvas"  HorizontalAlignment="Left" Height="240" Margin="170,52,0,0" VerticalAlignment="Top" Width="320"/>
+        <Button Content="Choose folder" HorizontalAlignment="Left" Margin="47,309,0,0" VerticalAlignment="Top" Width="98" Height="27" Click="ButtonChooseFolder_Click"/>
+
+    </Grid>
+</Window>
