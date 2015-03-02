@@ -1,0 +1,26 @@
+---
+layout: post
+title:  Dokumentation des selbstlernenden RoboterController
+date:   2015-01-02
+categories: learning, controller
+---
+
+##Ziel
+Ziel ist es aufzuzeigen, wie der Lern-Algorithmus des selbst lernenden Controllers funktioniert.  
+Hierfür wird die Klasse Learner verwendet, und anstatt zufällig Wikel zu lernen wird die Liste der Winkel komplett durchlaufen und nach jedem Versuch wird der Inhalt in eine Datei geschrieben.  
+Diese kann dann vom RobotControllerML eingelesen werden und dann kann der Controller einen fest vorgegebenen Pfad abfahren und die Positionen loggen.  
+Da der Controller die Befehle loggt, und auch bei jedem Schritt (Tick) des Roboters dessen Sensordaten gespeichert werden, kann für jeden Schritt die Abweichung zum Idealwert berechnet werden und für die Gesamtstrecke kann sowohl die durchschnittliche Abweichung als auch die maximale Abweichung ausgegeben werden.  
+Diese sollen grafisch aufbereitet werden.  
+
+
+
+---
+#Beispiel Code lighlighting
+{% highlight c# %}
+var i = 1;
+{% endhighlight %}
+
+Code ohne Highlighting  
+
+	2014-11-10	10:22:40:561	start
+	2014-11-10	10:22:40:661	1=1; 2=zwei

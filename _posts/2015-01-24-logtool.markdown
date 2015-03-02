@@ -1,0 +1,25 @@
+---
+layout: post
+title:  Das Programm LogTool
+date:   2015-01-24
+categories: learning, controller
+---
+
+##Ziel
+Ziel ist es grafisch aufzuzeigen, wie gut eine gewünschte Strecke abgefahren wurde.  
+
+
+##WhiteBot LogTool
+Darum gibt es die Extra-Solution **WhiteBotLogTool** im Ordner **LogTool**.  
+
+
+---
+#Beispiel Code lighlighting
+{% highlight c# %}
+var i = 1;
+{% endhighlight %}
+
+Code ohne Highlighting  
+
+  2014-11-10  10:22:40:561  start
+  2014-11-10  10:22:40:661  1=1; 2=zwei

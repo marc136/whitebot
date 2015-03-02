@@ -6,7 +6,7 @@ categories: dependencies
 ---
 
 Die Solution dieses Projektes ist der Controller des Roboters, der die Steuerung übernimmt.
-Damit alles richtig funktioniert, muss zuerst der Roboter mit Bluetooth verbunden, die Kamera richtig ausgerichtet und TouchServer aus der Solution TouchTable gestartet werden.  
+Damit alles richtig funktioniert, muss zuerst der Roboter mit Bluetooth verbunden, die Kamera richtig ausgerichtet und das Programm TouchServer aus der Solution TouchTable gestartet werden.  
 
 Was nötig ist, um TouchTable zu kompilieren, wurde in einem eigenen Blog Post beschrieben.
 
@@ -18,7 +18,8 @@ Für den RoboterController wird noch das [XNA-Framework][XNA Redistributable] be
 
 
 ##Weitere Informationen
-Die Oberfläche ist mit Windows Forms erstellt.
+Die Oberfläche ist mit Windows Forms erstellt.  
+Weitere Informationen zur Struktur sind im Post [Struktur | Roboter Controller]({{site.baseurl}}/controller/structure/2014/11/04/strukturWhiteBot.html)
 
 
 ##Erstes Ausführen

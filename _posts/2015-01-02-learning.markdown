@@ -1,0 +1,49 @@
+---
+layout: post
+title:  Learning
+date:   2015-01-02
+categories: learning, controller
+---
+
+##Generelle Probleme
+Ein Problem ist, dass der Winkel des Roboters nicht genau genug ausgerichtet wird.  
+Hier muss noch nachgebessert werden, da ein abweichender Winkel von 2 Grad eine erhebliche Auswirkung auf die Qualität der gefahrenen Strecke hat, wenn während dem Fahren der Winkel nicht mehr angepasst wird.  
+
+##Die Klasse Learner
+Eine Instanz der Klasse Learner wird von einem RobotControllerML Object verwendet, solange das Bewegen noch nicht gelernt wurde.  
+In der **OnTick**-Methode wird ```Learner.OnTick()``` aufgerufen und der eigene Code übersprungen.  
+
+Die Klasse Learner verwendet die gleichen Stati (Typ: RobotState), wie die Controller, versucht aber für bestimmte Winkel die optimale Ansteuerung der Motoren zu lernen.  
+
+Die Stati _RotateTo_, _LookAt_ und _LookInDirection_ werden in der Methode ```HandleRotationCommands``` bearbeitet, bei _MoveTo_ die Methode ```HandleMoveCommand``` aufgerufen wird.  
+Bei _Finished_ oder _Idle_ wird entweder eine neue Reihe an Lern-Befehlen erzeugt, oder eine Reihe an Befehlen nacheindander abgearbeitet.  
+
+Diese Reihe besteht immer aus den gleichen Schritten:  
+1.	Wenn der Roboter nicht in der CenterBox ist (ein bestimmter Bereich der Tafel bei dem man sicher sein kann, dass der Roboter nicht runter fällt), fahre in Richtung Mittelpunkt der CenterBox bis der Roboter innerhalb der Box ist (dabei wird der Roboter zuerst ausgerichtet und fährt dann los).  
+2.	Wähle aus dem dictionary learnedAngles einen Vektor aus, der gelernt werden soll.  
+3.	Rotiere in Richtung des Vektors  
+4.	Bewege dich in Richtung des Vektors, bis entweder das Ziel erreicht wurde, das eine bestimmte Strecke entlang dieses Vektors entfernt liegt, oder bis die Länge abgefahren wurde.  
+5.	Berechne die Distanz zwischen der aktuellen Position und dem Ziel und speichere diese. Eventuell kann der Vektor als gelernt markiert werden, falls die Distanz nah genug ist.  
+6.	Invertiere den Vektor und rotiere in diese Richtung.  
+7.	Fahre in Richtung des invertierten Vektor, bis das Ziel erreicht oder die Länge gefahren wurde. Im Besten Fall befindet sich der Roboter wieder am Ursprungsort.  
+6.	Berechne die Distanz zwischen der aktuellen Position und dem Ziel und speichere diese. Eventuell kann der Vektor als gelernt markiert werden, falls die Distanz nah genug ist.  
+8.	Beginne wieder von vorn.  
+
+
+
+###Auswahl eines zu lernenden Vektors
+Hierbei wird ein Vektor ausgewählt, der als _nicht gelernt_ gilt, für den also noch keine Motorkonfiguration gefunden wurde, die nah genug an das eigentliche Ziel heran kommt.  
+Zusätzlich wird darauf geachtet, dass die Vektoren mit der geringsten Anzahl an Versuchen bevorzugt werden.  
+
+
+
+---
+#Beispiel Code lighlighting
+{% highlight c# %}
+var i = 1;
+{% endhighlight %}
+
+Code ohne Highlighting  
+
+	2014-11-10	10:22:40:561	start
+	2014-11-10	10:22:40:661	1=1; 2=zwei

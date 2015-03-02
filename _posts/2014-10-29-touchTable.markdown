@@ -4,7 +4,7 @@ title:  "Abhängigkeiten | Touchtable"
 date:   2014-10-29
 categories: dependencies
 ---
-Die Daten aus der Kamera werden von der Anwendung TouchTable per UDP über eine HTML-Adresse versendet.  
+Die Daten aus der Kamera werden von der Anwendung TouchTable per UDP an eine IP-Adresse versendet.  
 Um TouchTable kompilieren und ausführen zu können, müssen einige Abhängigkeiten erfüllt werden.  
 
 ##Grundsätzlich

@@ -2,10 +2,11 @@
 title: Whiteboard drawing robot controller
 description: > # this means to ignore newlines until "baseurl:"
   Ein Roboter, der mathematische Funktionen oder beliebige Bilder an eine Whiteboard zeichnen kann.
-#baseurl: "" # the subpath of your site, e.g. /blog/
-baseurl: /whitebot
+# the subpath of your site, e.g. /blog/
+baseurl: "/_site" #local
+#baseurl: /whitebot #on github
 github_username: marc136
 
 # Build settings
 markdown: kramdown
-#highlighter: rouge
+highlighter: rouge #code highlighting on local

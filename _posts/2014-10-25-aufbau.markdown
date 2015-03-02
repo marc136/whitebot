@@ -10,7 +10,7 @@ Der Whiteboard Roboter funktioniert nicht von alleine, sondern besteht aus mehre
 
 *	Der Roboter selbst kann fahren und die Motoren für das Heben und Senken des Stifts und des 'Radiergummis' ansprechen.  
 *	Damit verbunden ist ein [blidgets][blidget-source] Board, das Befehle per Bluetooth über Bluetooth 4.0 LE empfangen kann und diese an den Roboter weiter gibt.  
-*	Zusätzlich befindet sich daran noch ein Android Tablet. Dessen Rotations- und Gravitationssensoren zur Lagebestimmung verwendet werden.  
+*	Zusätzlich befindet sich daran noch ein Android Tablet. Dessen Rotations- und Gravitationssensoren werden zur Lagebestimmung verwendet.  
 *	Die Position des Roboters wird durch eine Tiefenkamera festgestellt.  
 
 ##Einzelheiten

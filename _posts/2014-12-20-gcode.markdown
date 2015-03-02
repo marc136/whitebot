@@ -1,0 +1,58 @@
+---
+layout: post
+title:  GCode Parser
+date:   2014-12-20
+categories: gcode G-Code
+---
+##Projekt GCodeParser
+Um GCodes zu parsen wurde das Projekt GCodeParser hinzugefügt, das auch direkt als Konsolenanwendung gestartet werden kann.  
+
+Das Parsen erfolgt mittels regulärer Ausdrücke.  
+```
+string matchCodes = @"[GXYZ][+-]?[0-9]*\.?[0-9]­*";
+string matchNewlines = @"[\n\r]+\s*";
+```
+Die erste Zeile erlaubt es, sowohl die G-Steuerkommandes als auch die Veränderungen in X-,Y- oder Z-Achse zu finden. Diese Veränderungen werden sowohl als ganzzahlig als auch als Fließkommazahlen erkannt.  
+Die zweite Zeile erkennt Zeilenumbrüche. Dies ist notwending, da es in GCode erlaubt ist, den Kopf gleichzeitig in X- und in Y-Richtung zu bewegen. Durch einen Zeilenumbruch wird angezeigt, dass das Kommando zuende ist.
+
+
+###Allgemeiner Umgang mit einem Parser-Objekt
+Es gibt sowohl einen parameterlosen Konstruktor als auch einen, der die direkte Übergabe eines zu parsenden Codes unterstützt.  
+{% highlight c# %}
+var parser = new Parser();
+var parser2 = new Parser(gCode);
+{% endhighlight %}
+
+Einer Instanz der Klasse Parser kann auch zusätzlich noch ein CenterPoint übergeben werden, der den Nullpunkt der Arbeitsfläche einem bestimmten Punkt auf der Tafel des WhiteBot zuweist.  
+{% highlight c# %}
+parser.CenterPoint = new Vector2(100, 100);
+{% endhighlight %}
+Im Falle von absoluten Angaben im GCode werden diese dann entsprechend übersetzt.  
+
+Falls die Bewegung relativ geschieht, wird nur der Anfangspunkt auf den CenterPoint gesetzt, und alle weiteren Bewegungen werden mittels Vektorrechnung angesteuert.  
+
+Danach muss die Parse-Methode aufgerufen werden, der optional der GCode als String übergeben werden kann. 
+{% highlight c# %}
+var parser = new Parser();
+parser.CenterPoint = new Vector2(100, 100);
+parser.Parse();
+{% endhighlight %}
+
+Dadurch wird der Code geparst und eine CommandQueue ```Queue<ACommand>``` erzeugt, die danach über das Property ```GetCommandQueue``` abgerufen werden kann.  
+{% highlight c# %}
+var parser = new Parser(gCode);
+parser.Parse();
+var queue = parser.GetCommandQueue;
+{% endhighlight %}
+
+
+###Unterstütze Befehle
+*	**G90:** Absolutes Positionieren
+*	**G91:** Relatives Positionieren
+* **G00:** Schnelles Ausrichten (wird auf lineares Ausrichten umgesetzt)
+*	**G01:** Lineares Ausrichten
+
+###Einschränkungen
+Neben dem Übersetzen des schnellen Ausrichtens in ein lineares Ausrichten gibt es eine weitere Einschränkung, die auf dem Roboter selbst beruht.  
+Veränderungen in der Z-Achse werden nur in zwei Stufen (oben und unten) an den Stift weitergegeben.  
+Wenn die aktuelle Z-Position größer ist als die neue wird der Stift nach unten und andernfalls nach oben bewegt.  
