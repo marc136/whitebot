@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BLETest.RobotController.MLRobotController;
+using WhiteBot.RobotController.MLRobotController;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using BLETest;
+using WhiteBot;
 using Microsoft.Xna.Framework;
 
 namespace Tests

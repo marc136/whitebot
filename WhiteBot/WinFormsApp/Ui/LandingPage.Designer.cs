@@ -1,4 +1,4 @@
-﻿namespace BLETest.Ui
+﻿namespace WhiteBot.Ui
 {
     partial class LandingPage
     {

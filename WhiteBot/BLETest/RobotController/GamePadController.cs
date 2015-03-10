@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace BLETest
+namespace WhiteBot
 {
     public class ButtonEventArgs : EventArgs
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace BLETest
+namespace WhiteBot
 {
     public class FinishedEventArgs : EventArgs
     {
@@ -33,11 +33,11 @@ namespace BLETest
 
     public interface IRobotController
     {
-        event EventHandler<BLETest.FinishedEventArgs> Finished;
+        event EventHandler<WhiteBot.FinishedEventArgs> Finished;
         bool Idle { get; }
 
         void NextState();
-        void ReceiveCommand(BLETest.ACommand command);
+        void ReceiveCommand(WhiteBot.ACommand command);
         void Speed(double linear, double angular);
 
         event Action<string> OnLogController;

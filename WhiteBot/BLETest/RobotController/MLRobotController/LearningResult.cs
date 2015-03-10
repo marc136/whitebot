@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLETest.RobotController.MLRobotController
+namespace WhiteBot.RobotController.MLRobotController
 {
     [Serializable()]
     public class LearningResult : ISerializable

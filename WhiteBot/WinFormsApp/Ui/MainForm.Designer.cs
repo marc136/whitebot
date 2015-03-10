@@ -1,4 +1,4 @@
-﻿namespace BLETest
+﻿namespace WhiteBot
 {
     partial class Form1
     {
@@ -89,18 +89,18 @@
             this.inputCenterPointY = new System.Windows.Forms.NumericUpDown();
             this.inputCenterPointX = new System.Windows.Forms.NumericUpDown();
             this.btnParseGcode = new System.Windows.Forms.Button();
-            this.robot1OrientationVis1 = new BLETest.DirectionVisualizer();
-            this.robot1OrientationVis2 = new BLETest.DirectionVisualizer();
-            this.robot1OrientationVis3 = new BLETest.DirectionVisualizer();
-            this.robot1GravityVis1 = new BLETest.DirectionVisualizer();
-            this.robot1GravityVis2 = new BLETest.DirectionVisualizer();
-            this.robot1GravityVis3 = new BLETest.DirectionVisualizer();
-            this.robot2OrientationVis1 = new BLETest.DirectionVisualizer();
-            this.robot2OrientationVis2 = new BLETest.DirectionVisualizer();
-            this.robot2OrientationVis3 = new BLETest.DirectionVisualizer();
-            this.robot2GravityVis1 = new BLETest.DirectionVisualizer();
-            this.robot2GravityVis2 = new BLETest.DirectionVisualizer();
-            this.robot2GravityVis3 = new BLETest.DirectionVisualizer();
+            this.robot1OrientationVis1 = new WhiteBot.DirectionVisualizer();
+            this.robot1OrientationVis2 = new WhiteBot.DirectionVisualizer();
+            this.robot1OrientationVis3 = new WhiteBot.DirectionVisualizer();
+            this.robot1GravityVis1 = new WhiteBot.DirectionVisualizer();
+            this.robot1GravityVis2 = new WhiteBot.DirectionVisualizer();
+            this.robot1GravityVis3 = new WhiteBot.DirectionVisualizer();
+            this.robot2OrientationVis1 = new WhiteBot.DirectionVisualizer();
+            this.robot2OrientationVis2 = new WhiteBot.DirectionVisualizer();
+            this.robot2OrientationVis3 = new WhiteBot.DirectionVisualizer();
+            this.robot2GravityVis1 = new WhiteBot.DirectionVisualizer();
+            this.robot2GravityVis2 = new WhiteBot.DirectionVisualizer();
+            this.robot2GravityVis3 = new WhiteBot.DirectionVisualizer();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();

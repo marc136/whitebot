@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLETest
+namespace WhiteBot
 {
     public class PathPlannerSamples
     {

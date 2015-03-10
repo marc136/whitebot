@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BLETest
+namespace WhiteBot
 {
     public partial class DirectionVisualizer : UserControl
     {

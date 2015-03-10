@@ -1,4 +1,4 @@
-﻿using BLETest.RobotController.MLRobotController;
+﻿using WhiteBot.RobotController.MLRobotController;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BLETest.Ui
+namespace WhiteBot.Ui
 {
     public partial class LandingPage : Form
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLETest
+namespace WhiteBot
 {
     /// <summary>
     /// vertical -> on a wall || horizontal -> on a table

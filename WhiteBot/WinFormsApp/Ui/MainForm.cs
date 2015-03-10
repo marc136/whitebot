@@ -17,7 +17,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Logging;
 
-namespace BLETest
+namespace WhiteBot
 {
     public partial class Form1 : Form
     {

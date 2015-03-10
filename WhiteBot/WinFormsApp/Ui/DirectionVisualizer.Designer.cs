@@ -1,4 +1,4 @@
-﻿namespace BLETest
+﻿namespace WhiteBot
 {
     partial class DirectionVisualizer
     {

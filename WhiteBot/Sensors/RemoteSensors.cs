@@ -9,7 +9,7 @@ using System.Net;
 using System.IO;
 using Microsoft.Xna.Framework;
 
-namespace BLETest
+namespace WhiteBot
 {
     enum TouchState : byte
     {

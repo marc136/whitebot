@@ -7,7 +7,7 @@
     <ProjectGuid>{85487726-EEAE-4D34-8874-8FE73CBE2037}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BLETest</RootNamespace>
+    <RootNamespace>WhiteBot</RootNamespace>
     <AssemblyName>BLETest</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -91,19 +91,19 @@
     <Compile Include="RobotController\MLRobotController\LearnSpecificAngle.cs" />
     <Compile Include="RobotController\RobotController.cs" />
     <Compile Include="RobotController\MLRobotController\RobotControllerML.cs" />
-    <Compile Include="Level3\PathPlannerSamples.cs" />
-    <Compile Include="Level3\Command.cs" />
-    <Compile Include="Level1\DifferentialDrive.cs" />
-    <Compile Include="Level3\GamePadController.cs" />
-    <Compile Include="Level1\IDualMotorController.cs" />
-    <Compile Include="Level3\PathPlanner.cs" />
+    <Compile Include="AbstractComponents\PathPlannerSamples.cs" />
+    <Compile Include="AbstractComponents\Command.cs" />
+    <Compile Include="LowLevel\DifferentialDrive.cs" />
+    <Compile Include="RobotController\GamePadController.cs" />
+    <Compile Include="LowLevel\IDualMotorController.cs" />
+    <Compile Include="AbstractComponents\PathPlanner.cs" />
     <Compile Include="RobotController\PidRobotController\PidController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Robot.cs" />
     <Compile Include="RobotController\PidRobotController\RobotControllerPID.cs" />
-    <Compile Include="Level1\SerialDualMotorController.cs" />
-    <Compile Include="Level1\SerialMotorController.cs" />
-    <Compile Include="Level1\Servo.cs" />
+    <Compile Include="LowLevel\SerialDualMotorController.cs" />
+    <Compile Include="LowLevel\SerialMotorController.cs" />
+    <Compile Include="LowLevel\Servo.cs" />
     <Compile Include="Serializer.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

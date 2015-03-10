@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Devices.Enumeration;
 
-namespace BLETest
+namespace WhiteBot
 {
     public class ConnectionException : Exception
     {
