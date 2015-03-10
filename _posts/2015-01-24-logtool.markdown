@@ -5,21 +5,66 @@ date:   2015-01-24
 categories: learning, controller
 ---
 
-##Ziel
-Ziel ist es grafisch aufzuzeigen, wie gut eine gewünschte Strecke abgefahren wurde.  
+#WhiteBot LogTool
+Ziel dieser WPF-Anwendung ist es grafisch aufzuzeigen, wie gut eine gewünschte Strecke abgefahren wurde.  
 
+![Screenshot LogTool]({{site.baseurl}}/assets/logtool.png)  
+Die schwarz gestrichelte Linie zeigt den gewünschten Weg, die roten Markierungen zeigen den wirklichen Verlauf der Bewegungen.  
+Aus der Liste links können die einzelnen PathPlanner-Kommandolisten ausgewählt werden, die in den Logfiles gefunden wurden und diese können danach einzeln ausgewählt und angezeigt werden.  
 
-##WhiteBot LogTool
-Darum gibt es die Extra-Solution **WhiteBotLogTool** im Ordner **LogTool**.  
+##Die Logfiles
+Es gibt drei .log Dateien pro Controller. Diese sind:
 
+###robot0_controller
+Enthält Logs, die von RobotController geschrieben werden.  
+_Implementiert im AbstractRobotController._  
 
----
-#Beispiel Code lighlighting
-{% highlight c# %}
-var i = 1;
+Format der Zeilen:  
+```Timestamp | RobotControllerName | Befehl```  
+**RobotControllerName** ist entweder ```[ RobotControllerAbstract, RobotControllerPID, RobotControllerML ]```  
+Der **Befehl** kann zusätzlich noch in Klammern Zusatzinformationen enthalten,  
+zum Beispiel:  
+```Rotate(angle: -0,818822292975193 | angular: 943,790162763996)```  
+oder  
+```Stop(reason: path was finished)```  
+
+###robot0_pathplanner
+Enthält Logs, die vom Pathplanner geschrieben werden.  
+
+Format der Zeilen:  
+```Timestamp | "PathPlanner" | Informationen```  
+oder  
+```Timestamp | "PathPlanner" | "Controller:" | "Start task "[taskname](taskInformation)```  
+oder  
+```Timestamp | "PathPlanner" | "Controller:" | "Finished task "[taskname]```  
+
+Beispiel:  
+{% highlight bash %}
+14:28:33:650	PathPlanner	Start session
+14:29:18:630	PathPlanner	Controller:	start task	LookAt(x:180|y:100)
+14:29:19:860	PathPlanner	Controller:	Finished task LookAt
 {% endhighlight %}
 
-Code ohne Highlighting  
+###robot0_log:
+Enthält die Positionsdaten mit Tabs getrennt zu jedem Tick.  
+_Implementiert im AbstractRobotController._
 
-  2014-11-10  10:22:40:561  start
-  2014-11-10  10:22:40:661  1=1; 2=zwei
+Format der Zeilen:  
+```
+Timestamp | Position.X | Position.Y | LookDirection.X | LookDirection.Y | Gravity.X | Gravity.Y | Gravity.Z | DirectionVector.X | DirectionVector.Y  
+```
+
+##Ablauf
+Das Pathplanner-Logfile wird einmal komplett gelesen und die Timestamps aller Einträge _Start session_ werden gespeichert.  
+Beispiel:  
+```14:28:33:650	PathPlanner	Start session```
+
+Diese werden dem Benutzer in einer Liste angezeigt.  
+Der Benutzer kann dann auf ein Element klicken und den Button _Analyze_ anwählen.  
+Dadurch wird das Logfile noch einmal gelesen und alle Zeilen, die sich zwischen dem _Start session_ dieses Timestamps und dem nächsten _Start session_ (oder einem _Stop session_ oder dem Dateiende) befinden werden weiterverarbeitet.  
+
+Zu diesen Timestamps werden aus dem PathPlanner-Log die gewünschten _MoveTo_-Befehle auf die Oberfläche mit einer schwarz gestrichelten Linie gezeichnet.  
+Die tatsächlich erreichten Positionen des Robot0-Logs werden zu den passenden Timestamps auf die Oberfläche gezeichnet.  
+Danach kann der Unterschied zwischen den zwei Wegen visuell überprüft werden.  
+Numerische Auswertungen wären natürlich auch möglich, allerdings müsste zuerst geklärt werden, ob die Abweichung von der gewünschten Position zu einem bestimmten Zeitpunkt oder die Abweichung vom gewünschten Pfad bewertet werden soll.  
+![Screenshot LogTool]({{site.baseurl}}/assets/logtool.png)  

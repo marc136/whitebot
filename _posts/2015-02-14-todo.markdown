@@ -1,20 +1,20 @@
 ---
 layout: post
-title:  Todo
+title:  Weitere Aufgaben
 date:   2015-02-14
-categories: learning, controller
+categories: zukunft
 ---
+
+
+##Optimierung des Machine Learning Controller
+Der Machine Leanring Controller sollte weiter ausgebaut und getestet werden.  
+Allerdings brauchen diese Versuche Zeit, die mir leider zu Ende des Projekts gefehlt hat.  
+
+Bei der Fortführung sollte man auch darauf achten, dass der Untergrund, auf dem der Roboter sich bewegt nicht zu dünn ist. Bei mir wurde ein 0.5mm Blech so stark verbogen, dass an mehreren Positionen der Roboter aufsaß und die Räder sich nur noch in der Luft drehten.  
+
+##Weitere Ideen
+* Wenn nicht direkt zwischen Anfahren und Stoppen des Roboters gemessen wird, sondern der Roboter zuerst eine bestimmte Geschwindigkeit erreicht hat sollten die Abweichungen geringer ausfallen.  
+* Statt einem auf Generationen basierenden Algorithmus zum Lernen zu verwenden, könnte auch ein neuronales Netz verwendet werden.  Dieses müsste mit den Positions- und Ausrichtungsdaten sowie dem gewünschten Zielpunt gefüttert werden, und würde im Idealfall die Werte für die Ansteuerung der Motoren auswerfen.  
+
 
 What to do, what to do..
-
-
----
-#Beispiel Code lighlighting
-{% highlight c# %}
-var i = 1;
-{% endhighlight %}
-
-Code ohne Highlighting  
-
-  2014-11-10  10:22:40:561  start
-  2014-11-10  10:22:40:661  1=1; 2=zwei

@@ -34,16 +34,8 @@ Diese Reihe besteht immer aus den gleichen Schritten:
 ###Auswahl eines zu lernenden Vektors
 Hierbei wird ein Vektor ausgewählt, der als _nicht gelernt_ gilt, für den also noch keine Motorkonfiguration gefunden wurde, die nah genug an das eigentliche Ziel heran kommt.  
 Zusätzlich wird darauf geachtet, dass die Vektoren mit der geringsten Anzahl an Versuchen bevorzugt werden.  
+Zur Zeit ist der Learner jedoch so eingestellt, dass die Winkel nicht zufällig ausgewählt werden, sondern alle Winkel durchlaufen werden, sodass die Unterscheidung des Lernerfolgs in Generationen ausgewertet werden können.  
 
 
-
----
-#Beispiel Code lighlighting
-{% highlight c# %}
-var i = 1;
-{% endhighlight %}
-
-Code ohne Highlighting  
-
-	2014-11-10	10:22:40:561	start
-	2014-11-10	10:22:40:661	1=1; 2=zwei
+##Code
+Um die Abläufe nachvollziehen zu können, sollte direkt der Quellcode im Debugger durchlaufen werden.  
