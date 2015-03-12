@@ -12,6 +12,8 @@ Ziel dieser WPF-Anwendung ist es grafisch aufzuzeigen, wie gut eine gewünschte 
 Die schwarz gestrichelte Linie zeigt den gewünschten Weg, die roten Markierungen zeigen den wirklichen Verlauf der Bewegungen.  
 Aus der Liste links können die einzelnen PathPlanner-Kommandolisten ausgewählt werden, die in den Logfiles gefunden wurden und diese können danach einzeln ausgewählt und angezeigt werden.  
 
+Die Logfiles werden in das Verzeichnis der WhiteBot-Binary geschrieben und dieser Ordner sollte auch angewählt werden.  Beispieldaten sind im Ordner **WhiteBot\LogTool\Logs\sample benchmark\** abgelegt.
+
 ##Die Logfiles
 Es gibt drei .log Dateien pro Controller. Diese sind:
 

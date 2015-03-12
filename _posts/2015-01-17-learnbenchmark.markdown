@@ -15,7 +15,7 @@ Um jedoch den Fortschritt in den einzelnen Generationen ansprechend auszugeben, 
 Dieses Programm existiert in der Extra-Solution **LearnBenchmark** im Ordner **LearnTool**.  
 Die Werte, die beim Lernen der Winkel verwendet werden und in Dateien geschrieben werden (Winkel, Konfiguration des Linear und Angular speed, sowie die resultierende Abweichung vom Zielpunkt), werden von diesem Programm eingelsesen.  
 
-Nach Start des LearnTools kann man einen Ordner auswählen. Hier sollte der ausgewählt werden, in den der aktuelle Machine Learning Controller seine Daten schreibt. Dieser Ordner wird fortan überwacht, und alle JSON Dateien werden eingelesen.  
+Nach Start des LearnTools kann man einen Ordner auswählen. Hier sollte der ausgewählt werden, in den der aktuelle Machine Learning Controller seine Daten schreibt (der Unterordner Learned im selben Verzeichnis wie die Binary von WhiteBot, z.b. **WhiteBot\bin\x86\Debug\learned**). Dieser Ordner wird fortan überwacht, und alle JSON Dateien werden eingelesen.  
 
 Ausgegeben werden dann die Generation und die durchschnittliche Abweichung der besten bekannten Konfiguration für die Winkel.  
 Dadurch lässt sich gut verfolgen, wann es an der Zeit ist, das Lernen des Controllers abzubrechen. So kann man davon ausgehen, dass nach fünf Generationen mit minimalen Veränderungen auch nach der sechsten kaum eine Änderung mehr stattfinden wird.  
