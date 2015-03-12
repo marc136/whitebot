@@ -94,49 +94,58 @@ namespace WhiteBotLogTool.LogParsing
             PathTimeInformation currentPathInformation = null;
             string lastTimestampString = "";
 
-            using (StreamReader r = new StreamReader(logfilePlanner))
+            try
             {
-                string line;
-                
-                while ((line = r.ReadLine()) != null)
+
+                using (StreamReader r = new StreamReader(logfilePlanner))
                 {
-                    if (line.Length > 12) {
-                        lastTimestampString = line.Substring(0,12);
-                    }
-                    //try to match line to regex
-                    Match m = findPathsRegex.Match(line);
-                    if (m.Success)
+                    string line;
+
+                    while ((line = r.ReadLine()) != null)
                     {
-                        var timestamp = DateTime.ParseExact(m.Groups["timestamp"].Value, TimestampFormat, CultureInfo.InvariantCulture);
-
-                        if (currentPathInformation != null)
-                        {//add stop to existing PathInformation
-                            currentPathInformation.Stop = timestamp;
-                            if (!KnownPaths.Contains(currentPathInformation)) KnownPaths.Add(currentPathInformation);
-                            currentPathInformation = null;
-                        }
-
-                        if (m.Groups["startstop"].Value.ToLower() == "start")
+                        if (line.Length > 12)
                         {
-                            currentPathInformation = new PathTimeInformation(timestamp);
+                            lastTimestampString = line.Substring(0, 12);
                         }
-                        
-                        //group2: session|path
+                        //try to match line to regex
+                        Match m = findPathsRegex.Match(line);
+                        if (m.Success)
+                        {
+                            var timestamp = DateTime.ParseExact(m.Groups["timestamp"].Value, TimestampFormat, CultureInfo.InvariantCulture);
+
+                            if (currentPathInformation != null)
+                            {//add stop to existing PathInformation
+                                currentPathInformation.Stop = timestamp;
+                                if (!KnownPaths.Contains(currentPathInformation)) KnownPaths.Add(currentPathInformation);
+                                currentPathInformation = null;
+                            }
+
+                            if (m.Groups["startstop"].Value.ToLower() == "start")
+                            {
+                                currentPathInformation = new PathTimeInformation(timestamp);
+                            }
+
+                            //group2: session|path
+                        }
+                    }
+
+                    //file has ended, add last pathInformation
+                    if (currentPathInformation != null)
+                    {
+                        var timestamp = DateTime.ParseExact(lastTimestampString, TimestampFormat, CultureInfo.InvariantCulture);
+                        currentPathInformation.Stop = timestamp;
+                        //Maybe data was appended to the log file, so append the last Path in any case
+                        if (KnownPaths.Contains(currentPathInformation)) KnownPaths.Remove(currentPathInformation);
+
+                        KnownPaths.Add(currentPathInformation);
                     }
                 }
 
-                //file has ended, add last pathInformation
-                if (currentPathInformation != null)
-                {
-                    var timestamp = DateTime.ParseExact(lastTimestampString, TimestampFormat, CultureInfo.InvariantCulture);
-                    currentPathInformation.Stop = timestamp;
-                    //Maybe data was appended to the log file, so append the last Path in any case
-                    if (KnownPaths.Contains(currentPathInformation)) KnownPaths.Remove(currentPathInformation);
-                    
-                    KnownPaths.Add(currentPathInformation);
-                }
             }
-            
+            catch (FileNotFoundException)
+            {
+                System.Windows.MessageBox.Show("Could not find log files in the passed folder.", "No log files found", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 

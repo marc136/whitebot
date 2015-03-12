@@ -33,7 +33,7 @@ namespace WhiteBotLogTool
             InitializeComponent();
 
             logFileFolder = System.AppDomain.CurrentDomain.BaseDirectory;
-            logFileFolder = @"C:\Users\marc\Documents\HdM\WS 14-15\RoboterProjekt\program\WhiteBot\LogTool\Logs\sample benchmark";
+            //logFileFolder = @"C:\Users\marc\Documents\HdM\WS 14-15\RoboterProjekt\program\WhiteBot\LogTool\Logs\sample benchmark";
 
             InitializeParser();
             

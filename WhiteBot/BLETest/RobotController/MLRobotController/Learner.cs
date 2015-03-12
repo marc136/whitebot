@@ -385,14 +385,7 @@ namespace WhiteBot.RobotController.MLRobotController
             currentAngle = learnedResults.GetNotLearnedAngleWithLowestNumberOfTries();
             
             currentSpecificLearningAngle = learnedResults.ForNormalizedVector(currentAngle);
-            /*
-            var newGeneration = learnedResults.GetLowestNumberOfTries();
-            if (Generation < newGeneration)
-            {
-                Generation = newGeneration;
-                SaveCurrentLearningProcess();
-            }
-            /**/
+
             currentSpecificLearningAngle.CreateNextTry();
         }
 
