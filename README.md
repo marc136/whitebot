@@ -9,3 +9,6 @@ The controller that was implemented in this project is based on a generation-bas
 
 ##Documentation
 The documentation is located in the _gh-pages_ branch and uses the static page generator [Jekyll](http://jekyllrb.com/docs/github-pages/) and the [github pages gem for Ruby](https://github.com/github/pages-gem).  
+
+##Presentation
+A short presentation (in German) is found in _presentation.pdf_ in the main repository folder.
